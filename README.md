@@ -1,15 +1,15 @@
 # JGraphic
 
-[![Language](https://img.shields.io/badge/language-java-green.svg)](https://github.com/vladrus13/JGraphic)
 [![GitHub license](https://img.shields.io/github/license/vladrus13/JGraphic.svg)](https://github.com/vladrus13/JGraphic/blob/master/LICENSE)
-[![JitPack Repo](https://jitpack.io/v/vladrus13/JGraphic.svg)](https://jitpack.io/#vladrus13/codeforces-api)
+[![Language](https://img.shields.io/badge/language-java-green.svg)](https://github.com/vladrus13/JGraphic)
+[![JitPack Repo](https://jitpack.io/v/vladrus13/JGraphic.svg)](https://jitpack.io/#vladrus13/JGraphic)
 
 # Installation:
 
 Maven:
 
 ```
-    <repositories>
+	<repositories>
 		<repository>
 		    <id>jitpack.io</id>
 		    <url>https://jitpack.io</url>

@@ -28,15 +28,22 @@ public class TestFrame extends Frame {
      * @param size   frame size
      * @param parent parent frame
      */
-    public TestFrame(String name, Point start, Size size, Frame parent) throws GameException {
+    public TestFrame(String name, Point start, Size size, Frame parent) {
         super(name, start, size, parent);
-        text = new Text("test_text",
-                new Point(0, 0, CoordinatesType.REAL),
-                new Size(400, 1000, CoordinatesType.RATIO),
-                "HelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHello",
-                "Inventory",
-                new Size(50, 0, CoordinatesType.RATIO),
-                Color.BLACK, Text.TextAlign.CENTER, this);
+        Text text1;
+        try {
+            text1 = new Text("test_text",
+                    new Point(0, 0, CoordinatesType.REAL),
+                    new Size(400, 1000, CoordinatesType.RATIO),
+                    "HelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHello",
+                    "Inventory",
+                    new Size(50, 0, CoordinatesType.RATIO),
+                    Color.BLACK, Text.TextAlign.CENTER, this);
+        } catch (GameException e) {
+            e.printStackTrace();
+            text1 = null;
+        }
+        text = text1;
         recalculateChildes();
     }
 

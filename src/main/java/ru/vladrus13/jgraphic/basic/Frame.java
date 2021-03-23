@@ -97,6 +97,7 @@ public abstract class Frame extends Drawn implements Focus {
         if (sizeType == CoordinatesType.RATIO && parent != null) {
             size = Ratio.getSize(parent.size, ratioSize);
         }
+        recalculateChildes();
     }
 
     /**

@@ -9,6 +9,8 @@
     <version>1.1-ALPHA</version>
 
     <properties>
+        <exec.mainClass>ru.vladrus13.TestLauncher</exec.mainClass>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <maven.compiler.source>13</maven.compiler.source>
         <maven.compiler.target>13</maven.compiler.target>
     </properties>

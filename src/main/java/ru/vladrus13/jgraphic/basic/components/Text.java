@@ -116,31 +116,33 @@ public class Text extends Frame {
     @Override
     public void recalculateChildes() {
         // TODO make two or more strings on one text
-        if (fontSize.coordinatesType == CoordinatesType.RATIO) {
-            float newSizeFont = (fontSize.x * size.y) / 1000f;
-            font = font.deriveFont(newSizeFont);
+        if (fontSize != null) {
+            if (fontSize.coordinatesType == CoordinatesType.RATIO) {
+                float newSizeFont = (fontSize.x * size.y) / 1000f;
+                font = font.deriveFont(newSizeFont);
+            }
+            int textHeight = font.getSize();
+            int textWidth = FontService.fontWidth(text, font);
+            int textHeightStart = (int) (size.y / 2) + textHeight / 2;
+            if (textHeight > size.x) {
+                logger.warning("Text size greater than size of panel: x");
+            }
+            if (textWidth > size.y) {
+                logger.warning("Text size greater than size of panel: y");
+            }
+            int textWidthStart = -1;
+            switch (textAlign) {
+                case LEFT:
+                    textWidthStart = 0;
+                    break;
+                case RIGHT:
+                    textWidthStart = (int) (size.x - textWidth);
+                    break;
+                case CENTER:
+                    textWidthStart = (int) (size.x / 2) - textWidth / 2;
+                    break;
+            }
+            textStart = new Point(start.x + textWidthStart, start.y + textHeightStart, CoordinatesType.REAL);
         }
-        int textHeight = font.getSize();
-        int textWidth = FontService.fontWidth(text, font);
-        int textHeightStart = (int) (size.y / 2) + textHeight / 2;
-        if (textHeight > size.x) {
-            logger.warning("Text size greater than size of panel: x");
-        }
-        if (textWidth > size.y) {
-            logger.warning("Text size greater than size of panel: y");
-        }
-        int textWidthStart = -1;
-        switch (textAlign) {
-            case LEFT:
-                textWidthStart = 0;
-                break;
-            case RIGHT:
-                textWidthStart = (int) (size.x - textWidth);
-                break;
-            case CENTER:
-                textWidthStart = (int) (size.x / 2) - textWidth / 2;
-                break;
-        }
-        textStart = new Point(start.x + textWidthStart, start.y + textHeightStart, CoordinatesType.REAL);
     }
 }

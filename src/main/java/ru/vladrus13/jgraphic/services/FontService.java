@@ -78,12 +78,13 @@ public class FontService {
      * @param width width
      * @return array of text
      */
-    public static ArrayList<String> splitByWidth(String text, Font font, int width) {
+    public static ArrayList<String> splitByWidth(String text, Font font, long width) {
         // TODO better
         ArrayList<String> answer = new ArrayList<>();
         int current = 0, last = 0;
         while (current != text.length()) {
             if (AppService.getApp().getFontMetrics(font).stringWidth(text.substring(last, current)) > width) {
+                current--;
                 answer.add(text.substring(last, current));
                 last = current;
             }

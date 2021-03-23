@@ -7,6 +7,8 @@ import ru.vladrus13.jgraphic.bean.Size;
 import ru.vladrus13.jgraphic.exception.GameException;
 import ru.vladrus13.jgraphic.utils.Ratio;
 
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Deque;
 import java.util.LinkedList;
 import java.util.logging.Logger;
@@ -56,6 +58,7 @@ public abstract class Frame extends Drawn implements Focus {
      */
     protected final Logger logger = Logger.getLogger(Frame.class.getName());
     protected final String name;
+    protected final Collection<Frame> childes;
 
     /**
      * Standard constructor for Frame
@@ -84,6 +87,7 @@ public abstract class Frame extends Drawn implements Focus {
         startType = start.coordinatesType;
         sizeType = size.coordinatesType;
         this.parent = parent;
+        childes = new ArrayList<>();
         recalculate();
     }
 
@@ -103,7 +107,11 @@ public abstract class Frame extends Drawn implements Focus {
     /**
      * Recalculate all childes
      */
-    public abstract void recalculateChildes();
+    public void recalculateChildes() {
+        for (Frame frame : childes) {
+            frame.recalculate();
+        }
+    }
 
     /**
      * If there are some changes in the size of the windows, then this method is called
@@ -171,5 +179,13 @@ public abstract class Frame extends Drawn implements Focus {
             throw new GameException("Current focused frame not equal removed");
         }
         removeFocused();
+    }
+
+    public void addChild(Frame frame) {
+        childes.add(frame);
+    }
+
+    public void removeChild(Frame frame) {
+        childes.remove(frame);
     }
 }

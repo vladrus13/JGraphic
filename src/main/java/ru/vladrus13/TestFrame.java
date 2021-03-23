@@ -32,10 +32,10 @@ public class TestFrame extends Frame {
         super(name, start, size, parent);
         text = new Text("test_text",
                 new Point(0, 0, CoordinatesType.REAL),
-                new Size(400, 200, CoordinatesType.RATIO),
-                "Hello",
+                new Size(400, 1000, CoordinatesType.RATIO),
+                "HelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHello",
                 "Inventory",
-                new Size(300, 0, CoordinatesType.RATIO),
+                new Size(50, 0, CoordinatesType.RATIO),
                 Color.BLACK, Text.TextAlign.CENTER, this);
         recalculateChildes();
     }

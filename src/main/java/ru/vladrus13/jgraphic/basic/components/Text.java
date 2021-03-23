@@ -51,6 +51,8 @@ public class Text extends Frame {
      * Text
      */
     private final String text;
+    private String[] splitText;
+    private Point[] splitTextHeight;
     /**
      * Font for text
      *
@@ -69,10 +71,6 @@ public class Text extends Frame {
      * @see TextAlign
      */
     private final TextAlign textAlign;
-    /**
-     * Start position for text (lower left corner)
-     */
-    private Point textStart;
     /**
      * Font size. Only need x-axis and type
      */
@@ -110,39 +108,48 @@ public class Text extends Frame {
     public void nonCheckingDraw(Graphics graphics) {
         graphics.setColor(color);
         graphics.setFont(font);
-        graphics.drawString(text, textStart.x, textStart.y);
+        for (int i = 0; i < splitText.length; i++) {
+            graphics.drawString(splitText[i], splitTextHeight[i].x, splitTextHeight[i].y);
+        }
     }
 
     @Override
     public void recalculateChildes() {
         // TODO make two or more strings on one text
-        if (fontSize != null) {
+        if (text != null && fontSize != null && size != null) {
             if (fontSize.coordinatesType == CoordinatesType.RATIO) {
                 float newSizeFont = (fontSize.x * size.y) / 1000f;
                 font = font.deriveFont(newSizeFont);
             }
+            splitText = FontService.splitByWidth(text, font, size.x).toArray(String[]::new);
+            splitTextHeight = new Point[splitText.length];
             int textHeight = font.getSize();
-            int textWidth = FontService.fontWidth(text, font);
-            int textHeightStart = (int) (size.y / 2) + textHeight / 2;
-            if (textHeight > size.x) {
-                logger.warning("Text size greater than size of panel: x");
+            int textStartPosition = textHeight;
+            for (int position = 0; position < splitText.length; position++) {
+                String split = splitText[position];
+                int textWidth = FontService.fontWidth(split, font);
+                int textHeightStart = textStartPosition;
+                textStartPosition += textHeight;
+                if (textStartPosition > size.y) {
+                    logger.warning("Text size greater than size of panel: y");
+                }
+                if (textWidth > size.x) {
+                    logger.warning("Text size greater than size of panel: x");
+                }
+                int textWidthStart = -1;
+                switch (textAlign) {
+                    case LEFT:
+                        textWidthStart = 0;
+                        break;
+                    case RIGHT:
+                        textWidthStart = (int) (size.x - textWidth);
+                        break;
+                    case CENTER:
+                        textWidthStart = (int) (size.x / 2) - textWidth / 2;
+                        break;
+                }
+                splitTextHeight[position] = new Point(start.x + textWidthStart, start.y + textHeightStart, CoordinatesType.REAL);
             }
-            if (textWidth > size.y) {
-                logger.warning("Text size greater than size of panel: y");
-            }
-            int textWidthStart = -1;
-            switch (textAlign) {
-                case LEFT:
-                    textWidthStart = 0;
-                    break;
-                case RIGHT:
-                    textWidthStart = (int) (size.x - textWidth);
-                    break;
-                case CENTER:
-                    textWidthStart = (int) (size.x / 2) - textWidth / 2;
-                    break;
-            }
-            textStart = new Point(start.x + textWidthStart, start.y + textHeightStart, CoordinatesType.REAL);
         }
     }
 }

@@ -44,8 +44,10 @@ public class Choose extends Frame implements KeyTaker {
 
     @Override
     public void recalculateChildes() {
-        for (Button button : buttons) {
-            button.recalculate();
+        if (buttons != null) {
+            for (Button button : buttons) {
+                button.recalculate();
+            }
         }
     }
 

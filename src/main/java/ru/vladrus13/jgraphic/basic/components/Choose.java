@@ -2,12 +2,15 @@ package ru.vladrus13.jgraphic.basic.components;
 
 import ru.vladrus13.jgraphic.basic.Frame;
 import ru.vladrus13.jgraphic.basic.KeyTaker;
+import ru.vladrus13.jgraphic.bean.CoordinatesType;
 import ru.vladrus13.jgraphic.bean.Point;
 import ru.vladrus13.jgraphic.bean.Size;
 import ru.vladrus13.jgraphic.basic.event.returned.ReturnEvent;
 import ru.vladrus13.jgraphic.basic.event.returned.ReturnInt;
 import ru.vladrus13.graphic.Graphics;
+import ru.vladrus13.jgraphic.exception.GameException;
 
+import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
@@ -94,5 +97,66 @@ public class Choose extends Frame implements KeyTaker {
             button.setChoose(true);
         }
         buttons.add(button);
+    }
+
+    public static Choose getInstance(String name, int count, Point start, Size size, Frame parent,
+                                     Size buttonSize, Filler[] backgroundsChoose,
+                                     Filler[] backgroundsNotChoose, String[] texts,
+                                     String nameFont, Size fontSize, Color colorFont, Text.TextAlign textAlign,
+                                     ReturnEvent[] eventsKeyboard, ReturnEvent[] eventsMouse) throws GameException {
+        if (count != texts.length || count != eventsKeyboard.length || count != eventsMouse.length ||
+                count != backgroundsNotChoose.length || count != backgroundsChoose.length) {
+            throw new IllegalArgumentException("Size of arrays not equals with count of buttons");
+        }
+
+        Choose choose = new Choose(name, start, size, parent);
+        if (choose.size.x < buttonSize.x && buttonSize.coordinatesType == CoordinatesType.REAL) {
+            throw new GameException("Size of button can't be greater than choose size: x");
+        }
+        if (choose.size.y < buttonSize.y * count && buttonSize.coordinatesType == CoordinatesType.REAL) {
+            throw new GameException("Size of buttons can't be greater than choose size: y");
+        }
+        if (buttonSize.x > 1000 && buttonSize.coordinatesType == CoordinatesType.RATIO) {
+            throw new GameException("Size of button on ratio can't be greater than choose size: x");
+        }
+        if (buttonSize.y * count > 1000 && buttonSize.coordinatesType == CoordinatesType.RATIO) {
+            throw new GameException("Size of buttons on ratio can't be greater than choose size: y");
+        }
+        long underX;
+        long underY;
+        if (buttonSize.coordinatesType == CoordinatesType.RATIO) {
+            underX = (1000 - buttonSize.x) / 2;
+            underY = (1000 - count * buttonSize.y) / (count + 1);
+        } else {
+            underX = (choose.size.x - buttonSize.x) / 2;
+            underY = (choose.size.y - buttonSize.y * count) / (count + 1);
+        }
+        for (int i = 0; i < count; i++) {
+            int finalI = i;
+            Point point = new Point(underX, underY * (i + 1) + buttonSize.y * i, buttonSize.coordinatesType);
+            Button button = new Button("button" + i,
+                   point.copy() , buttonSize.copy(), choose) {
+                @Override
+                public ReturnEvent mousePressed(MouseEvent e) {
+                    return eventsMouse[finalI];
+                }
+
+                @Override
+                public ReturnEvent keyPressed(KeyEvent e) {
+                    return eventsKeyboard[finalI];
+                }
+            };
+            Background background = new Background("background", new Point(0, 0, CoordinatesType.RATIO),
+                    new Size(1000, 1000, CoordinatesType.RATIO), backgroundsChoose[i], button);
+            Background backgroundNonChoose = new Background("backgroundNonChoose", new Point(0, 0, CoordinatesType.RATIO),
+                    new Size(1000, 1000, CoordinatesType.RATIO), backgroundsNotChoose[i], button);
+            Text text = new Text("text", new Point(0, 0, CoordinatesType.RATIO),
+                    new Size(1000, 1000, CoordinatesType.RATIO), texts[i], nameFont, fontSize.copy(), colorFont, textAlign, button);
+            button.setBackground(background);
+            button.setBackgroundChoose(backgroundNonChoose);
+            button.setText(text);
+            choose.addButton(button);
+        }
+        return choose;
     }
 }

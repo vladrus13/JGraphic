@@ -61,6 +61,27 @@ public class Background extends Frame {
     }
 
     /**
+     * Constructor for Background with color
+     *
+     * @param name   system name of frame
+     * @param start  start position
+     * @param size   size
+     * @param filler  filler
+     * @param parent parent for this frame
+     */
+    public Background(String name, Point start, Size size, Filler filler, Frame parent) {
+        super(name, start, size, parent);
+        if (filler.getBufferedImage() == null) {
+            this.color = filler.getColor();
+            this.image = null;
+        } else {
+            this.image = filler.getBufferedImage();
+            this.color = null;
+        }
+        recalculateChildes();
+    }
+
+    /**
      * Parent fill background
      *
      * @param name   system name of frame

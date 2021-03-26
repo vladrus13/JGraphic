@@ -19,9 +19,9 @@ import java.awt.event.*;
 public class TestApp extends App {
 
     public TestApp() {
-        super(800, 800);
+        super(1000, 1000);
         System.out.println("Run class: Test");
-        current = new TestFrame("Frame", new Point(0,0, CoordinatesType.REAL), new Size(800, 800, CoordinatesType.REAL), null);
+        current = new TestFrame("Frame", new Point(0,0, CoordinatesType.REAL), new Size(1000, 1000, CoordinatesType.REAL), null);
         painter();
     }
 

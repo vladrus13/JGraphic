@@ -2,8 +2,10 @@ package ru.vladrus13;
 
 import ru.vladrus13.graphic.Graphics;
 import ru.vladrus13.jgraphic.basic.Frame;
-import ru.vladrus13.jgraphic.basic.components.Text;
+import ru.vladrus13.jgraphic.basic.components.*;
+import ru.vladrus13.jgraphic.basic.components.Button;
 import ru.vladrus13.jgraphic.basic.event.returned.ReturnEvent;
+import ru.vladrus13.jgraphic.basic.event.returned.ReturnInt;
 import ru.vladrus13.jgraphic.bean.CoordinatesType;
 import ru.vladrus13.jgraphic.bean.Point;
 import ru.vladrus13.jgraphic.bean.Size;
@@ -18,7 +20,7 @@ import java.awt.event.MouseEvent;
  **/
 public class TestFrame extends Frame {
 
-    private final Text text;
+    private final Choose choose;
 
     /**
      * Standard constructor for Frame
@@ -30,33 +32,35 @@ public class TestFrame extends Frame {
      */
     public TestFrame(String name, Point start, Size size, Frame parent) {
         super(name, start, size, parent);
-        Text text1;
+        Choose choose1;
         try {
-            text1 = new Text("test_text",
-                    new Point(0, 0, CoordinatesType.REAL),
-                    new Size(400, 1000, CoordinatesType.RATIO),
-                    "HelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHello",
-                    "Inventory",
-                    new Size(50, 0, CoordinatesType.RATIO),
-                    Color.BLACK, Text.TextAlign.CENTER, this);
+            choose1 = Choose.getInstance("choose", 3, new Point(0, 0, CoordinatesType.RATIO),
+                    new Size(1000, 1000, CoordinatesType.RATIO), this, new Size(800, 100, CoordinatesType.RATIO),
+                    new Filler[]{new Filler(Color.RED), new Filler(Color.RED), new Filler(Color.RED)},
+                    new Filler[]{new Filler(Color.BLUE), new Filler(Color.BLUE), new Filler(Color.BLUE)},
+                    new String[]{"Ahh1", "AHAHAHAHA", "FINISH394853485"},
+                    "Inventory", new Size(300, 0, CoordinatesType.RATIO), Color.BLACK, Text.TextAlign.CENTER,
+                    new ReturnEvent[]{new ReturnInt(ReturnInt.NOTHING), new ReturnInt(ReturnInt.NOTHING), new ReturnInt(ReturnInt.NOTHING)},
+                    new ReturnEvent[]{new ReturnInt(ReturnInt.NOTHING), new ReturnInt(ReturnInt.NOTHING), new ReturnInt(ReturnInt.NOTHING)});
         } catch (GameException e) {
             e.printStackTrace();
-            text1 = null;
+            choose1 = null;
         }
-        text = text1;
+        choose = choose1;
         recalculateChildes();
     }
 
     @Override
     protected void nonCheckingDraw(Graphics graphics) {
-        text.draw(graphics);
+        if (choose != null) {
+            choose.draw(graphics);
+        }
     }
 
     @Override
     public void recalculateChildes() {
-        System.out.println("Recalculate");
-        if (text != null) {
-            text.recalculate();
+        if (choose != null) {
+            choose.recalculate();
         }
     }
 

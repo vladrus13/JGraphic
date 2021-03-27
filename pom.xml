@@ -6,7 +6,7 @@
 
     <groupId>ru.vladrus13</groupId>
     <artifactId>JGraphic</artifactId>
-    <version>1.1.3</version>
+    <version>1.1.3.1</version>
 
     <properties>
         <exec.mainClass>ru.vladrus13.TestLauncher</exec.mainClass>

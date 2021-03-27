@@ -65,12 +65,12 @@ public class Choose extends Frame implements KeyTaker {
     public ReturnEvent keyPressed(KeyEvent e) {
         int keyCode = e.getKeyCode();
         switch (keyCode) {
-            case KeyEvent.VK_UP:
+            case KeyEvent.VK_DOWN:
                 buttons.get(current).setChoose(false);
                 current = (current + 1) % buttons.size();
                 buttons.get(current).setChoose(true);
                 break;
-            case KeyEvent.VK_DOWN:
+            case KeyEvent.VK_UP:
                 buttons.get(current).setChoose(false);
                 current = (current + buttons.size() - 1) % buttons.size();
                 buttons.get(current).setChoose(true);
@@ -99,6 +99,26 @@ public class Choose extends Frame implements KeyTaker {
         buttons.add(button);
     }
 
+    /**
+     * Get choose from all buttons
+     * @param name name of choose
+     * @param count count of buttons
+     * @param start start position of choose
+     * @param size size of choose
+     * @param parent parent frame of choose
+     * @param buttonSize button size of choose
+     * @param backgroundsChoose backgrounds of chooses when it's active
+     * @param backgroundsNotChoose backgrounds of chooses when it's not active
+     * @param texts texts of buttons
+     * @param nameFont name of font on buttons
+     * @param fontSize font size on buttons
+     * @param colorFont color font on buttons
+     * @param textAlign text align on buttons
+     * @param eventsKeyboard events if pressed buttons by keyboard
+     * @param eventsMouse events if pressed buttons by mouse
+     * @return choose
+     * @throws GameException if we have problems with size of buttons and choose
+     */
     public static Choose getInstance(String name, int count, Point start, Size size, Frame parent,
                                      Size buttonSize, Filler[] backgroundsChoose,
                                      Filler[] backgroundsNotChoose, String[] texts,

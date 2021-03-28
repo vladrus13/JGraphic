@@ -1,7 +1,5 @@
 package ru.vladrus13;
 
-import ru.vladrus13.jgraphic.property.MainProperty;
-
 /**
  * @author vladrus13 on 23.03.2021
  **/

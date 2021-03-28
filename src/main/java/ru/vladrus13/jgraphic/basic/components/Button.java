@@ -1,9 +1,9 @@
 package ru.vladrus13.jgraphic.basic.components;
 
+import ru.vladrus13.graphic.Graphics;
 import ru.vladrus13.jgraphic.basic.Frame;
 import ru.vladrus13.jgraphic.bean.Point;
 import ru.vladrus13.jgraphic.bean.Size;
-import ru.vladrus13.graphic.Graphics;
 
 /**
  * Button class for graphics. Can be touched and activate. Use <b>Builder pattern</b>.

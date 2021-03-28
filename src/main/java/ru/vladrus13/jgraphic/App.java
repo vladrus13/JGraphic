@@ -1,6 +1,7 @@
 package ru.vladrus13.jgraphic;
 
 import ru.vladrus13.jgraphic.basic.Frame;
+import ru.vladrus13.jgraphic.basic.UpdatedFrame;
 import ru.vladrus13.jgraphic.services.AppService;
 
 import javax.swing.*;
@@ -52,6 +53,9 @@ public abstract class App extends JPanel implements ActionListener, MouseListene
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
+            }
+            if (current instanceof UpdatedFrame) {
+                ((UpdatedFrame) current).update(System.currentTimeMillis() - previousTime);
             }
             previousTime = System.currentTimeMillis();
             repaint();

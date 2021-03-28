@@ -1,11 +1,11 @@
 package ru.vladrus13.jgraphic.basic.components;
 
+import ru.vladrus13.graphic.Graphics;
 import ru.vladrus13.jgraphic.basic.Frame;
 import ru.vladrus13.jgraphic.basic.event.returned.ReturnEvent;
 import ru.vladrus13.jgraphic.basic.event.returned.ReturnInt;
 import ru.vladrus13.jgraphic.bean.Point;
 import ru.vladrus13.jgraphic.bean.Size;
-import ru.vladrus13.graphic.Graphics;
 
 import java.awt.*;
 import java.awt.event.KeyEvent;
@@ -66,7 +66,7 @@ public class Background extends Frame {
      * @param name   system name of frame
      * @param start  start position
      * @param size   size
-     * @param filler  filler
+     * @param filler filler
      * @param parent parent for this frame
      */
     public Background(String name, Point start, Size size, Filler filler, Frame parent) {

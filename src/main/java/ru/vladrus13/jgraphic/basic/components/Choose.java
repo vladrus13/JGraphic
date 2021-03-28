@@ -1,13 +1,13 @@
 package ru.vladrus13.jgraphic.basic.components;
 
+import ru.vladrus13.graphic.Graphics;
 import ru.vladrus13.jgraphic.basic.Frame;
 import ru.vladrus13.jgraphic.basic.KeyTaker;
+import ru.vladrus13.jgraphic.basic.event.returned.ReturnEvent;
+import ru.vladrus13.jgraphic.basic.event.returned.ReturnInt;
 import ru.vladrus13.jgraphic.bean.CoordinatesType;
 import ru.vladrus13.jgraphic.bean.Point;
 import ru.vladrus13.jgraphic.bean.Size;
-import ru.vladrus13.jgraphic.basic.event.returned.ReturnEvent;
-import ru.vladrus13.jgraphic.basic.event.returned.ReturnInt;
-import ru.vladrus13.graphic.Graphics;
 import ru.vladrus13.jgraphic.exception.GameException;
 
 import java.awt.*;
@@ -101,21 +101,22 @@ public class Choose extends Frame implements KeyTaker {
 
     /**
      * Get choose from all buttons
-     * @param name name of choose
-     * @param count count of buttons
-     * @param start start position of choose
-     * @param size size of choose
-     * @param parent parent frame of choose
-     * @param buttonSize button size of choose
-     * @param backgroundsChoose backgrounds of chooses when it's active
+     *
+     * @param name                 name of choose
+     * @param count                count of buttons
+     * @param start                start position of choose
+     * @param size                 size of choose
+     * @param parent               parent frame of choose
+     * @param buttonSize           button size of choose
+     * @param backgroundsChoose    backgrounds of chooses when it's active
      * @param backgroundsNotChoose backgrounds of chooses when it's not active
-     * @param texts texts of buttons
-     * @param nameFont name of font on buttons
-     * @param fontSize font size on buttons
-     * @param colorFont color font on buttons
-     * @param textAlign text align on buttons
-     * @param eventsKeyboard events if pressed buttons by keyboard
-     * @param eventsMouse events if pressed buttons by mouse
+     * @param texts                texts of buttons
+     * @param nameFont             name of font on buttons
+     * @param fontSize             font size on buttons
+     * @param colorFont            color font on buttons
+     * @param textAlign            text align on buttons
+     * @param eventsKeyboard       events if pressed buttons by keyboard
+     * @param eventsMouse          events if pressed buttons by mouse
      * @return choose
      * @throws GameException if we have problems with size of buttons and choose
      */
@@ -155,7 +156,7 @@ public class Choose extends Frame implements KeyTaker {
             int finalI = i;
             Point point = new Point(underX, underY * (i + 1) + buttonSize.y * i, buttonSize.coordinatesType);
             Button button = new Button("button" + i,
-                   point.copy() , buttonSize.copy(), choose) {
+                    point.copy(), buttonSize.copy(), choose) {
                 @Override
                 public ReturnEvent mousePressed(MouseEvent e) {
                     return eventsMouse[finalI];

@@ -2,8 +2,9 @@ package ru.vladrus13;
 
 import ru.vladrus13.graphic.Graphics;
 import ru.vladrus13.jgraphic.basic.Frame;
-import ru.vladrus13.jgraphic.basic.components.*;
-import ru.vladrus13.jgraphic.basic.components.Button;
+import ru.vladrus13.jgraphic.basic.components.Choose;
+import ru.vladrus13.jgraphic.basic.components.Filler;
+import ru.vladrus13.jgraphic.basic.components.Text;
 import ru.vladrus13.jgraphic.basic.event.returned.ReturnEvent;
 import ru.vladrus13.jgraphic.basic.event.returned.ReturnInt;
 import ru.vladrus13.jgraphic.bean.CoordinatesType;

@@ -1,8 +1,8 @@
 package ru.vladrus13.jgraphic.basic.components;
 
 import ru.vladrus13.jgraphic.basic.Frame;
-import ru.vladrus13.jgraphic.basic.event.returned.ReturnEvent;
-import ru.vladrus13.jgraphic.basic.event.returned.ReturnInt;
+import ru.vladrus13.jgraphic.basic.event.Event;
+import ru.vladrus13.jgraphic.basic.event.returned.IntEvent;
 import ru.vladrus13.jgraphic.bean.Point;
 import ru.vladrus13.jgraphic.bean.Size;
 
@@ -13,7 +13,7 @@ import java.awt.event.MouseEvent;
  * Implementation of button class. Return Event if button activated. Use <b>Builder Pattern</b>
  *
  * @author vladrus13
- * @see ReturnEvent
+ * @see Event
  * @see <a href="https://en.wikipedia.org/wiki/Builder_pattern">Builder pattern</a>
  */
 public class ClassicButton extends Button {
@@ -21,7 +21,7 @@ public class ClassicButton extends Button {
     /**
      * Event if button activate
      */
-    private ReturnEvent event = new ReturnInt(ReturnInt.PRESSED);
+    private Event event = new IntEvent(IntEvent.PRESSED);
 
     /**
      * Classic frame constructor for button
@@ -36,16 +36,16 @@ public class ClassicButton extends Button {
     }
 
     @Override
-    public ReturnEvent keyPressed(KeyEvent e) {
+    public Event keyPressed(KeyEvent e) {
         if (e.getKeyCode() == KeyEvent.VK_ENTER) {
             return event;
         }
-        return new ReturnInt(ReturnInt.NOTHING);
+        return new IntEvent(IntEvent.NOTHING);
     }
 
     @Override
-    public ReturnEvent mousePressed(MouseEvent e) {
-        return new ReturnInt(ReturnInt.NOTHING);
+    public Event mousePressed(MouseEvent e) {
+        return new IntEvent(IntEvent.NOTHING);
     }
 
     /**
@@ -54,7 +54,7 @@ public class ClassicButton extends Button {
      * @param event event
      * @return this button
      */
-    public ClassicButton setEvent(ReturnEvent event) {
+    public ClassicButton setEvent(Event event) {
         this.event = event;
         return this;
     }

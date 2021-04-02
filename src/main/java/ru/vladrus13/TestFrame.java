@@ -5,8 +5,8 @@ import ru.vladrus13.jgraphic.basic.Frame;
 import ru.vladrus13.jgraphic.basic.components.Choose;
 import ru.vladrus13.jgraphic.basic.components.Filler;
 import ru.vladrus13.jgraphic.basic.components.Text;
-import ru.vladrus13.jgraphic.basic.event.returned.ReturnEvent;
-import ru.vladrus13.jgraphic.basic.event.returned.ReturnInt;
+import ru.vladrus13.jgraphic.basic.event.Event;
+import ru.vladrus13.jgraphic.basic.event.returned.IntEvent;
 import ru.vladrus13.jgraphic.bean.CoordinatesType;
 import ru.vladrus13.jgraphic.bean.Point;
 import ru.vladrus13.jgraphic.bean.Size;
@@ -41,8 +41,8 @@ public class TestFrame extends Frame {
                     new Filler[]{new Filler(Color.BLUE), new Filler(Color.BLUE), new Filler(Color.BLUE)},
                     new String[]{"Ahh1", "AHAHAHAHA", "FINISH394853485"},
                     "Inventory", new Size(300, 0, CoordinatesType.RATIO), Color.BLACK, Text.TextAlign.CENTER,
-                    new ReturnEvent[]{new ReturnInt(ReturnInt.NOTHING), new ReturnInt(ReturnInt.NOTHING), new ReturnInt(ReturnInt.NOTHING)},
-                    new ReturnEvent[]{new ReturnInt(ReturnInt.NOTHING), new ReturnInt(ReturnInt.NOTHING), new ReturnInt(ReturnInt.NOTHING)});
+                    new ru.vladrus13.jgraphic.basic.event.Event[]{new IntEvent(IntEvent.NOTHING), new IntEvent(IntEvent.NOTHING), new IntEvent(IntEvent.NOTHING)},
+                    new Event[]{new IntEvent(IntEvent.NOTHING), new IntEvent(IntEvent.NOTHING), new IntEvent(IntEvent.NOTHING)});
         } catch (GameException e) {
             e.printStackTrace();
             choose1 = null;
@@ -66,12 +66,12 @@ public class TestFrame extends Frame {
     }
 
     @Override
-    public ReturnEvent keyPressed(KeyEvent e) {
+    public ru.vladrus13.jgraphic.basic.event.Event keyPressed(KeyEvent e) {
         return null;
     }
 
     @Override
-    public ReturnEvent mousePressed(MouseEvent e) {
+    public ru.vladrus13.jgraphic.basic.event.Event mousePressed(MouseEvent e) {
         return null;
     }
 }

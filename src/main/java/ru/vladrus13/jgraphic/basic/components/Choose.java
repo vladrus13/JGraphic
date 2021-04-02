@@ -3,8 +3,8 @@ package ru.vladrus13.jgraphic.basic.components;
 import ru.vladrus13.graphic.Graphics;
 import ru.vladrus13.jgraphic.basic.Frame;
 import ru.vladrus13.jgraphic.basic.KeyTaker;
-import ru.vladrus13.jgraphic.basic.event.returned.ReturnEvent;
-import ru.vladrus13.jgraphic.basic.event.returned.ReturnInt;
+import ru.vladrus13.jgraphic.basic.event.Event;
+import ru.vladrus13.jgraphic.basic.event.returned.IntEvent;
 import ru.vladrus13.jgraphic.bean.CoordinatesType;
 import ru.vladrus13.jgraphic.bean.Point;
 import ru.vladrus13.jgraphic.bean.Size;
@@ -62,7 +62,7 @@ public class Choose extends Frame implements KeyTaker {
     }
 
     @Override
-    public ReturnEvent keyPressed(KeyEvent e) {
+    public ru.vladrus13.jgraphic.basic.event.Event keyPressed(KeyEvent e) {
         int keyCode = e.getKeyCode();
         switch (keyCode) {
             case KeyEvent.VK_DOWN:
@@ -78,12 +78,12 @@ public class Choose extends Frame implements KeyTaker {
             case KeyEvent.VK_ENTER:
                 return buttons.get(current).keyPressed(e);
         }
-        return new ReturnInt(ReturnInt.NOTHING);
+        return new IntEvent(IntEvent.NOTHING);
     }
 
     @Override
-    public ReturnEvent mousePressed(MouseEvent e) {
-        return new ReturnInt(ReturnInt.NOTHING);
+    public ru.vladrus13.jgraphic.basic.event.Event mousePressed(MouseEvent e) {
+        return new IntEvent(IntEvent.NOTHING);
     }
 
     /**
@@ -124,7 +124,8 @@ public class Choose extends Frame implements KeyTaker {
                                      Size buttonSize, Filler[] backgroundsChoose,
                                      Filler[] backgroundsNotChoose, String[] texts,
                                      String nameFont, Size fontSize, Color colorFont, Text.TextAlign textAlign,
-                                     ReturnEvent[] eventsKeyboard, ReturnEvent[] eventsMouse) throws GameException {
+                                     ru.vladrus13.jgraphic.basic.event.Event[] eventsKeyboard,
+                                     Event[] eventsMouse) throws GameException {
         if (count != texts.length || count != eventsKeyboard.length || count != eventsMouse.length ||
                 count != backgroundsNotChoose.length || count != backgroundsChoose.length) {
             throw new IllegalArgumentException("Size of arrays not equals with count of buttons");
@@ -158,12 +159,12 @@ public class Choose extends Frame implements KeyTaker {
             Button button = new Button("button" + i,
                     point.copy(), buttonSize.copy(), choose) {
                 @Override
-                public ReturnEvent mousePressed(MouseEvent e) {
+                public ru.vladrus13.jgraphic.basic.event.Event mousePressed(MouseEvent e) {
                     return eventsMouse[finalI];
                 }
 
                 @Override
-                public ReturnEvent keyPressed(KeyEvent e) {
+                public ru.vladrus13.jgraphic.basic.event.Event keyPressed(KeyEvent e) {
                     return eventsKeyboard[finalI];
                 }
             };

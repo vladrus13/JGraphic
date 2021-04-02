@@ -1,6 +1,6 @@
 package ru.vladrus13.jgraphic.basic;
 
-import ru.vladrus13.jgraphic.basic.event.returned.ReturnEvent;
+import ru.vladrus13.jgraphic.basic.event.Event;
 
 import java.awt.event.KeyEvent;
 
@@ -14,5 +14,5 @@ public interface KeyTaker {
      * @param e request from keyboard
      * @return response from request
      */
-    ReturnEvent keyPressed(KeyEvent e);
+    Event keyPressed(KeyEvent e);
 }

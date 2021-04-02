@@ -1,6 +1,8 @@
 package ru.vladrus13.jgraphic.basic.event.returned;
 
-public class ReturnInt extends ReturnEvent {
+import ru.vladrus13.jgraphic.basic.event.Event;
+
+public class IntEvent extends Event {
     public static final int NOTHING = 0;
     public static final int PRESSED = 1;
     public static final int TO_MENU = 101;
@@ -9,7 +11,7 @@ public class ReturnInt extends ReturnEvent {
 
     private final int event;
 
-    public ReturnInt(int event) {
+    public IntEvent(int event) {
         this.event = event;
     }
 

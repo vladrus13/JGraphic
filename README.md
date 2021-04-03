@@ -3,6 +3,7 @@
 [![GitHub license](https://img.shields.io/github/license/vladrus13/JGraphic.svg)](https://github.com/vladrus13/JGraphic/blob/master/LICENSE)
 [![Language](https://img.shields.io/badge/language-java-green.svg)](https://github.com/vladrus13/JGraphic)
 [![JitPack Repo](https://jitpack.io/v/vladrus13/JGraphic.svg)](https://jitpack.io/#vladrus13/JGraphic)
+[![](https://jitpack.io/v/vladrus13/JGraphic/month.svg)](https://jitpack.io/#vladrus13/JGraphic)
 
 # Installation:
 

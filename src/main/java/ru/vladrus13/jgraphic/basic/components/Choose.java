@@ -3,14 +3,14 @@ package ru.vladrus13.jgraphic.basic.components;
 import ru.vladrus13.graphic.Graphics;
 import ru.vladrus13.jgraphic.basic.Frame;
 import ru.vladrus13.jgraphic.basic.KeyTaker;
-import ru.vladrus13.jgraphic.basic.event.Event;
 import ru.vladrus13.jgraphic.basic.event.returned.IntEvent;
 import ru.vladrus13.jgraphic.bean.CoordinatesType;
 import ru.vladrus13.jgraphic.bean.Point;
 import ru.vladrus13.jgraphic.bean.Size;
 import ru.vladrus13.jgraphic.exception.GameException;
+import ru.vladrus13.jgraphic.factory.components.ButtonFactory;
+import ru.vladrus13.jgraphic.factory.components.TextFactory;
 
-import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
@@ -108,33 +108,20 @@ public class Choose extends Frame implements KeyTaker {
     /**
      * Get choose from all buttons
      *
-     * @param name                 name of choose
-     * @param count                count of buttons
-     * @param start                start position of choose
-     * @param size                 size of choose
-     * @param parent               parent frame of choose
-     * @param buttonSize           button size of choose
-     * @param backgroundsChoose    backgrounds of chooses when it's active
-     * @param backgroundsNotChoose backgrounds of chooses when it's not active
-     * @param texts                texts of buttons
-     * @param nameFont             name of font on buttons
-     * @param fontSize             font size on buttons
-     * @param colorFont            color font on buttons
-     * @param textAlign            text align on buttons
-     * @param eventsKeyboard       events if pressed buttons by keyboard
-     * @param eventsMouse          events if pressed buttons by mouse
+     * @param name       name of choose
+     * @param count      count of buttons
+     * @param start      start position of choose
+     * @param size       size of choose
+     * @param parent     parent frame of choose
+     * @param buttonSize button size of choose
+     * @param buttons    buttons array
      * @return choose
      * @throws GameException if we have problems with size of buttons and choose
      */
     public static Choose getInstance(String name, int count, Point start, Size size, Frame parent,
-                                     Size buttonSize, Filler[] backgroundsChoose,
-                                     Filler[] backgroundsNotChoose, String[] texts,
-                                     String nameFont, Size fontSize, Color colorFont, Text.TextAlign textAlign,
-                                     ru.vladrus13.jgraphic.basic.event.Event[] eventsKeyboard,
-                                     Event[] eventsMouse) throws GameException {
-        if (count != texts.length || count != eventsKeyboard.length || count != eventsMouse.length ||
-                count != backgroundsNotChoose.length || count != backgroundsChoose.length) {
-            throw new IllegalArgumentException("Size of arrays not equals with count of buttons");
+                                     Size buttonSize, Button[] buttons) throws GameException {
+        if (count != buttons.length) {
+            throw new IllegalArgumentException("Size of array not equals with count of buttons");
         }
 
         Choose choose = new Choose(name, start, size, parent);
@@ -160,31 +147,31 @@ public class Choose extends Frame implements KeyTaker {
             underY = (choose.size.y - buttonSize.y * count) / (count + 1);
         }
         for (int i = 0; i < count; i++) {
-            int finalI = i;
             Point point = new Point(underX, underY * (i + 1) + buttonSize.y * i, buttonSize.coordinatesType);
-            Button button = new Button("button" + i,
-                    point.copy(), buttonSize.copy(), choose) {
-                @Override
-                public ru.vladrus13.jgraphic.basic.event.Event mousePressed(MouseEvent e) {
-                    return eventsMouse[finalI];
-                }
-
-                @Override
-                public ru.vladrus13.jgraphic.basic.event.Event keyPressed(KeyEvent e) {
-                    return eventsKeyboard[finalI];
-                }
-            };
-            Background background = new Background("background", new Point(0, 0, CoordinatesType.RATIO),
-                    new Size(1000, 1000, CoordinatesType.RATIO), backgroundsChoose[i], button);
-            Background backgroundNonChoose = new Background("backgroundNonChoose", new Point(0, 0, CoordinatesType.RATIO),
-                    new Size(1000, 1000, CoordinatesType.RATIO), backgroundsNotChoose[i], button);
-            Text text = new Text("text", new Point(0, 0, CoordinatesType.RATIO),
-                    new Size(1000, 1000, CoordinatesType.RATIO), texts[i], nameFont, fontSize.copy(), colorFont, textAlign, button);
-            button.setBackground(background);
-            button.setBackgroundChoose(backgroundNonChoose);
-            button.setText(text);
-            choose.addButton(button);
+            buttons[i].setFrame(buttonSize.copy(), point);
+            choose.addButton(buttons[i]);
+            buttons[i].setParent(choose);
         }
+        choose.recalculate();
         return choose;
+    }
+
+    public static Choose getInstance(String name, int count, Point start, Size size, Frame parent,
+                                     Size buttonSize, String[] texts,
+                                     ButtonFactory buttonFactory, TextFactory textFactory) throws GameException {
+        if (count != texts.length) {
+            throw new IllegalArgumentException("Size of array not equals with count of buttons");
+        }
+        Button[] buttons = new Button[count];
+        Size fullSize = new Size(1000, 1000, CoordinatesType.RATIO);
+        Point fullStart = new Point(0, 0, CoordinatesType.RATIO);
+        for (int i = 0; i < count; i++) {
+            Text text = textFactory.getInstance("text", texts[i], null);
+            Button button = buttonFactory.getInstance("button" + i, text, null);
+            text.setParent(button);
+            text.setFrame(fullSize, fullStart);
+            buttons[i] = button;
+        }
+        return getInstance(name, count, start, size, parent, buttonSize, buttons);
     }
 }

@@ -104,6 +104,15 @@ public class Text extends Frame {
         recalculateChildes();
     }
 
+    public Text(String name, String text, String nameFont, Size fontSize, Color color, TextAlign textAlign, Frame parent) throws GameException {
+        super(name, parent);
+        this.text = text;
+        this.color = color;
+        this.font = FontService.getFont(nameFont);
+        this.textAlign = textAlign;
+        this.fontSize = fontSize;
+    }
+
     @Override
     public void nonCheckingDraw(Graphics graphics) {
         graphics.setColor(color);

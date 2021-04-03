@@ -2,15 +2,16 @@ package ru.vladrus13;
 
 import ru.vladrus13.graphic.Graphics;
 import ru.vladrus13.jgraphic.basic.Frame;
+import ru.vladrus13.jgraphic.basic.components.Background;
 import ru.vladrus13.jgraphic.basic.components.Choose;
 import ru.vladrus13.jgraphic.basic.components.Filler;
 import ru.vladrus13.jgraphic.basic.components.Text;
-import ru.vladrus13.jgraphic.basic.event.Event;
-import ru.vladrus13.jgraphic.basic.event.returned.IntEvent;
 import ru.vladrus13.jgraphic.bean.CoordinatesType;
 import ru.vladrus13.jgraphic.bean.Point;
 import ru.vladrus13.jgraphic.bean.Size;
 import ru.vladrus13.jgraphic.exception.GameException;
+import ru.vladrus13.jgraphic.factory.components.ButtonFactory;
+import ru.vladrus13.jgraphic.factory.components.TextFactory;
 
 import java.awt.*;
 import java.awt.event.KeyEvent;
@@ -34,15 +35,21 @@ public class TestFrame extends Frame {
     public TestFrame(String name, Point start, Size size, Frame parent) {
         super(name, start, size, parent);
         Choose choose1;
+        Size fullSize = new Size(1000, 1000, CoordinatesType.RATIO);
+        Point fullStart = new Point(0, 0, CoordinatesType.RATIO);
+        ButtonFactory buttonFactory = new ButtonFactory()
+                .setBackground(new Background("back", fullStart.copy(), fullSize.copy(), new Filler(Color.BLUE), null))
+                .setChooseBackground(new Background("chBack", fullStart.copy(), fullSize.copy(), new Filler(Color.RED), null));
+        TextFactory textFactory = new TextFactory()
+                .setNameFont("Inventory")
+                .setColor(Color.BLACK)
+                .setFontSize(new Size(300, 0, CoordinatesType.RATIO))
+                .setTextAlign(Text.TextAlign.CENTER);
         try {
-            choose1 = Choose.getInstance("choose", 3, new Point(0, 0, CoordinatesType.RATIO),
-                    new Size(1000, 1000, CoordinatesType.RATIO), this, new Size(800, 100, CoordinatesType.RATIO),
-                    new Filler[]{new Filler(Color.RED), new Filler(Color.RED), new Filler(Color.RED)},
-                    new Filler[]{new Filler(Color.BLUE), new Filler(Color.BLUE), new Filler(Color.BLUE)},
-                    new String[]{"Ahh1", "AHAHAHAHA", "FINISH394853485"},
-                    "Inventory", new Size(300, 0, CoordinatesType.RATIO), Color.BLACK, Text.TextAlign.CENTER,
-                    new ru.vladrus13.jgraphic.basic.event.Event[]{new IntEvent(IntEvent.NOTHING), new IntEvent(IntEvent.NOTHING), new IntEvent(IntEvent.NOTHING)},
-                    new Event[]{new IntEvent(IntEvent.NOTHING), new IntEvent(IntEvent.NOTHING), new IntEvent(IntEvent.NOTHING)});
+            choose1 = Choose.getInstance("choose", 3, new Point(100, 100, CoordinatesType.RATIO),
+                    new Size(800, 800, CoordinatesType.RATIO), this, new Size(800, 100, CoordinatesType.RATIO),
+                    new String[]{"1", "23", "456"}, buttonFactory, textFactory);
+            choose1.recalculate();
         } catch (GameException e) {
             e.printStackTrace();
             choose1 = null;

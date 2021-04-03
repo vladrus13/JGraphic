@@ -110,10 +110,10 @@ public abstract class Frame extends Drawn implements Focus {
      * If there are some changes in the size of the windows, then this method is called
      */
     public void recalculate() {
-        if (startType == CoordinatesType.RATIO && parent != null) {
+        if (startType == CoordinatesType.RATIO && parent != null && parent.start != null) {
             start = Ratio.getPoint(parent.start, parent.size, ratioStart);
         }
-        if (sizeType == CoordinatesType.RATIO && parent != null) {
+        if (sizeType == CoordinatesType.RATIO && parent != null && parent.size != null) {
             size = Ratio.getSize(parent.size, ratioSize);
         }
         recalculateChildes();

@@ -20,13 +20,9 @@ import java.awt.image.BufferedImage;
 public class Background extends Frame {
 
     /**
-     * Is null if a color is selected
+     * Filler class
      */
-    private final BufferedImage image;
-    /**
-     * Is null if a image is selected
-     */
-    private final Color color;
+    private final Filler filler;
 
     /**
      * Constructor for Background with image
@@ -37,22 +33,16 @@ public class Background extends Frame {
      * @param image  image
      * @param parent parent for this frame
      */
+    @Deprecated
     public Background(String name, Point start, Size size, BufferedImage image, Frame parent) {
         super(name, start, size, parent);
-        this.image = image;
-        color = null;
+        filler = new Filler(image);
         recalculateChildes();
     }
 
     public Background(String name, Filler filler, Frame parent) {
         super(name, parent);
-        if (filler.getBufferedImage() == null) {
-            this.color = filler.getColor();
-            this.image = null;
-        } else {
-            this.image = filler.getBufferedImage();
-            this.color = null;
-        }
+        this.filler = filler;
     }
 
     /**
@@ -64,10 +54,10 @@ public class Background extends Frame {
      * @param color  color
      * @param parent parent for this frame
      */
+    @Deprecated
     public Background(String name, Point start, Size size, Color color, Frame parent) {
         super(name, start, size, parent);
-        this.color = color;
-        image = null;
+        filler = new Filler(color);
         recalculateChildes();
     }
 
@@ -82,13 +72,7 @@ public class Background extends Frame {
      */
     public Background(String name, Point start, Size size, Filler filler, Frame parent) {
         super(name, start, size, parent);
-        if (filler.getBufferedImage() == null) {
-            this.color = filler.getColor();
-            this.image = null;
-        } else {
-            this.image = filler.getBufferedImage();
-            this.color = null;
-        }
+        this.filler = filler;
         recalculateChildes();
     }
 
@@ -99,21 +83,23 @@ public class Background extends Frame {
      * @param color  color
      * @param parent parent
      */
+    @Deprecated
     public Background(String name, Color color, Frame parent) {
         super(name, parent.getStart(), parent.getSize(), parent);
-        this.color = color;
-        this.image = null;
+        this.filler = new Filler(color);
         recalculateChildes();
     }
 
     @Override
     public void nonCheckingDraw(Graphics graphics) {
-        if (color != null) {
-            graphics.setColor(color);
-            graphics.fillRect(start.x, start.y, size.x, size.y);
-        }
-        if (image != null) {
-            graphics.drawImage(image, start.x, start.y, size.x, size.y);
+        if (filler != null) {
+            if (filler.getBufferedImage() != null) {
+                graphics.drawImage(filler.getBufferedImage(), start.x, start.y, size.x, size.y);
+            }
+            if (filler.getColor() != null) {
+                graphics.setColor(filler.getColor());
+                graphics.fillRect(start.x, start.y, size.x, size.y);
+            }
         }
     }
 
@@ -130,5 +116,15 @@ public class Background extends Frame {
     @Override
     public void recalculateChildes() {
 
+    }
+
+    public Background copy() {
+        if (ratioStart != null && ratioSize != null) {
+            return new Background(name, ratioStart.copy(), ratioSize.copy(), filler, parent);
+        }
+        if (start != null && size != null) {
+            return new Background(name, start.copy(), size.copy(), filler, parent);
+        }
+        return new Background(name, filler, parent);
     }
 }

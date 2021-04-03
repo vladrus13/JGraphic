@@ -32,11 +32,11 @@ public abstract class Frame extends Drawn implements Focus {
     /**
      * Ratio start position. Can be null if constructor contain real position
      */
-    protected final Point ratioStart;
+    protected Point ratioStart;
     /**
      * Ratio size. Can be null if constructor contain real size
      */
-    protected final Size ratioSize;
+    protected Size ratioSize;
     /**
      * Parent frame. Can be null if no parents are given
      */
@@ -44,11 +44,11 @@ public abstract class Frame extends Drawn implements Focus {
     /**
      * Type of start position
      */
-    protected final CoordinatesType startType;
+    protected CoordinatesType startType;
     /**
      * Type of size
      */
-    protected final CoordinatesType sizeType;
+    protected CoordinatesType sizeType;
     /**
      * Focused class. The top deque is called on keyboard or mouse events
      */
@@ -69,25 +69,40 @@ public abstract class Frame extends Drawn implements Focus {
      * @param parent parent frame
      */
     public Frame(String name, Point start, Size size, Frame parent) {
-        if (start.coordinatesType == CoordinatesType.REAL) {
-            this.start = start;
-            this.ratioStart = null;
-        } else {
-            this.ratioStart = start;
-            this.start = null;
-        }
-        if (size.coordinatesType == CoordinatesType.REAL) {
-            this.size = size;
-            this.ratioSize = null;
-        } else {
-            this.ratioSize = size;
-            this.size = null;
-        }
         this.name = name;
-        startType = start.coordinatesType;
-        sizeType = size.coordinatesType;
         this.parent = parent;
         childes = new ArrayList<>();
+        setFrame(size, start);
+        recalculate();
+    }
+
+    public Frame(String name, Frame parent) {
+        this.name = name;
+        this.parent = parent;
+        childes = new ArrayList<>();
+    }
+
+    public void setFrame(Size size, Point start) {
+        if (start != null) {
+            if (start.coordinatesType == CoordinatesType.REAL) {
+                this.start = start;
+                this.ratioStart = null;
+            } else {
+                this.ratioStart = start;
+                this.start = null;
+            }
+            startType = start.coordinatesType;
+        }
+        if (size != null) {
+            if (size.coordinatesType == CoordinatesType.REAL) {
+                this.size = size;
+                this.ratioSize = null;
+            } else {
+                this.ratioSize = size;
+                this.size = null;
+            }
+            sizeType = size.coordinatesType;
+        }
         recalculate();
     }
 

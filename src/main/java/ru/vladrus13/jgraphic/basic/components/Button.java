@@ -43,6 +43,10 @@ public abstract class Button extends Frame {
         recalculateChildes();
     }
 
+    public Button(String name, Frame parent) {
+        super(name, parent);
+    }
+
     @Override
     public void nonCheckingDraw(Graphics graphics) {
         if (choose) {

@@ -41,6 +41,11 @@ public class Image extends Frame {
         image = ImageLoader.load(path);
     }
 
+    public Image(String name, Path path, Frame parent) throws GameException {
+        super(name, parent);
+        image = ImageLoader.load(path);
+    }
+
     @Override
     protected void nonCheckingDraw(Graphics graphics) {
         graphics.drawImage(image, start.x, start.y, size.x, size.y);

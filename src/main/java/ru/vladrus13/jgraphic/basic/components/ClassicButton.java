@@ -35,6 +35,10 @@ public class ClassicButton extends Button {
         super(name, start, size, parent);
     }
 
+    public ClassicButton(String name, Frame parent) {
+        super(name, parent);
+    }
+
     @Override
     public Event keyPressed(KeyEvent e) {
         if (e.getKeyCode() == KeyEvent.VK_ENTER) {

@@ -44,6 +44,17 @@ public class Background extends Frame {
         recalculateChildes();
     }
 
+    public Background(String name, Filler filler, Frame parent) {
+        super(name, parent);
+        if (filler.getBufferedImage() == null) {
+            this.color = filler.getColor();
+            this.image = null;
+        } else {
+            this.image = filler.getBufferedImage();
+            this.color = null;
+        }
+    }
+
     /**
      * Constructor for Background with color
      *

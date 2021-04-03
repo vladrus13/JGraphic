@@ -45,6 +45,12 @@ public class Choose extends Frame implements KeyTaker {
         recalculateChildes();
     }
 
+    public Choose(String name, Frame parent) {
+        super(name, parent);
+        this.buttons = new ArrayList<>();
+        current = 0;
+    }
+
     @Override
     public void recalculateChildes() {
         if (buttons != null) {

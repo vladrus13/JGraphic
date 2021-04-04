@@ -1,4 +1,4 @@
-package ru.vladrus13.jgraphic.basic.event.returned;
+package ru.vladrus13.jgraphic.basic.event.impl;
 
 import ru.vladrus13.jgraphic.basic.event.Event;
 

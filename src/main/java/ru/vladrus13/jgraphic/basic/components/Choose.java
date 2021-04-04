@@ -3,7 +3,10 @@ package ru.vladrus13.jgraphic.basic.components;
 import ru.vladrus13.graphic.Graphics;
 import ru.vladrus13.jgraphic.basic.Frame;
 import ru.vladrus13.jgraphic.basic.KeyTaker;
-import ru.vladrus13.jgraphic.basic.event.returned.IntEvent;
+import ru.vladrus13.jgraphic.basic.event.Event;
+import ru.vladrus13.jgraphic.basic.event.impl.ChooseEvent;
+import ru.vladrus13.jgraphic.basic.event.impl.FrameEvent;
+import ru.vladrus13.jgraphic.basic.event.impl.IntEvent;
 import ru.vladrus13.jgraphic.bean.CoordinatesType;
 import ru.vladrus13.jgraphic.bean.Point;
 import ru.vladrus13.jgraphic.bean.Size;
@@ -82,7 +85,14 @@ public class Choose extends Frame implements KeyTaker {
                 buttons.get(current).setChoose(true);
                 break;
             case KeyEvent.VK_ENTER:
-                return buttons.get(current).keyPressed(e);
+                Event event = buttons.get(current).keyPressed(e);
+                if (event instanceof ChooseEvent) {
+                    switch (((ChooseEvent) event).event) {
+                        case ChooseEvent.END_CHOOSE:
+                            return new FrameEvent(FrameEvent.CLOSE_FRAME);
+                    }
+                }
+                return event;
         }
         return new IntEvent(IntEvent.NOTHING);
     }

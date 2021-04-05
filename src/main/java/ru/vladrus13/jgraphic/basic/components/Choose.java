@@ -5,7 +5,6 @@ import ru.vladrus13.jgraphic.basic.Frame;
 import ru.vladrus13.jgraphic.basic.KeyTaker;
 import ru.vladrus13.jgraphic.basic.event.Event;
 import ru.vladrus13.jgraphic.basic.event.impl.ChooseEvent;
-import ru.vladrus13.jgraphic.basic.event.impl.FrameEvent;
 import ru.vladrus13.jgraphic.basic.event.impl.IntEvent;
 import ru.vladrus13.jgraphic.bean.CoordinatesType;
 import ru.vladrus13.jgraphic.bean.Point;
@@ -85,11 +84,17 @@ public class Choose extends Frame implements KeyTaker {
                 buttons.get(current).setChoose(true);
                 break;
             case KeyEvent.VK_ENTER:
+                if (buttons.size() > 0) return new IntEvent(IntEvent.NOTHING);
                 Event event = buttons.get(current).keyPressed(e);
                 if (event instanceof ChooseEvent) {
                     switch (((ChooseEvent) event).event) {
                         case ChooseEvent.END_CHOOSE:
-                            return new FrameEvent(FrameEvent.CLOSE_FRAME);
+                            try {
+                                parent.removeFocused(this);
+                                parent.removeChild(this);
+                            } catch (GameException gameException) {
+                                gameException.printStackTrace();
+                            }
                     }
                 }
                 return event;
@@ -133,7 +138,6 @@ public class Choose extends Frame implements KeyTaker {
         if (count != buttons.length) {
             throw new IllegalArgumentException("Size of array not equals with count of buttons");
         }
-
         Choose choose = new Choose(name, start, size, parent);
         if (choose.size.x < buttonSize.x && buttonSize.coordinatesType == CoordinatesType.REAL) {
             throw new GameException("Size of button can't be greater than choose size: x");

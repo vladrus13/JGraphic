@@ -5,7 +5,6 @@ import ru.vladrus13.jgraphic.basic.Frame;
 import ru.vladrus13.jgraphic.basic.KeyTaker;
 import ru.vladrus13.jgraphic.basic.event.Event;
 import ru.vladrus13.jgraphic.basic.event.impl.ChooseEvent;
-import ru.vladrus13.jgraphic.basic.event.impl.IntEvent;
 import ru.vladrus13.jgraphic.bean.CoordinatesType;
 import ru.vladrus13.jgraphic.bean.Point;
 import ru.vladrus13.jgraphic.bean.Size;
@@ -70,7 +69,7 @@ public class Choose extends Frame implements KeyTaker {
     }
 
     @Override
-    public ru.vladrus13.jgraphic.basic.event.Event keyPressed(KeyEvent e) {
+    public void keyPressed(KeyEvent e) {
         int keyCode = e.getKeyCode();
         switch (keyCode) {
             case KeyEvent.VK_DOWN:
@@ -84,27 +83,30 @@ public class Choose extends Frame implements KeyTaker {
                 buttons.get(current).setChoose(true);
                 break;
             case KeyEvent.VK_ENTER:
-                if (buttons.size() == 0) return new IntEvent(IntEvent.NOTHING);
-                Event event = buttons.get(current).keyPressed(e);
-                if (event instanceof ChooseEvent) {
-                    switch (((ChooseEvent) event).event) {
-                        case ChooseEvent.END_CHOOSE:
-                            try {
-                                parent.removeFocused(this);
-                                parent.removeChild(this);
-                            } catch (GameException gameException) {
-                                gameException.printStackTrace();
-                            }
-                    }
-                }
-                return event;
+                if (buttons.size() == 0) return;
+                buttons.get(current).keyPressed(e);
         }
-        return new IntEvent(IntEvent.NOTHING);
     }
 
     @Override
-    public ru.vladrus13.jgraphic.basic.event.Event mousePressed(MouseEvent e) {
-        return new IntEvent(IntEvent.NOTHING);
+    public void callEvent(Event event) {
+        if (event instanceof ChooseEvent) {
+            switch (((ChooseEvent) event).event) {
+                case ChooseEvent.END_CHOOSE:
+                    try {
+                        parent.removeFocused(this);
+                        parent.removeChild(this);
+                    } catch (GameException gameException) {
+                        gameException.printStackTrace();
+                    }
+            }
+            return;
+        }
+        parent.callEvent(event);
+    }
+
+    @Override
+    public void mousePressed(MouseEvent e) {
     }
 
     /**

@@ -2,8 +2,6 @@ package ru.vladrus13.jgraphic.basic.components;
 
 import ru.vladrus13.graphic.Graphics;
 import ru.vladrus13.jgraphic.basic.Frame;
-import ru.vladrus13.jgraphic.basic.event.Event;
-import ru.vladrus13.jgraphic.basic.event.impl.IntEvent;
 import ru.vladrus13.jgraphic.bean.Point;
 import ru.vladrus13.jgraphic.bean.Size;
 
@@ -104,13 +102,11 @@ public class Background extends Frame {
     }
 
     @Override
-    public ru.vladrus13.jgraphic.basic.event.Event keyPressed(KeyEvent e) {
-        return new IntEvent(IntEvent.NOTHING);
+    public void keyPressed(KeyEvent e) {
     }
 
     @Override
-    public Event mousePressed(MouseEvent e) {
-        return new IntEvent(IntEvent.NOTHING);
+    public void mousePressed(MouseEvent e) {
     }
 
     @Override

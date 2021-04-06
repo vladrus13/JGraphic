@@ -73,12 +73,10 @@ public class TestFrame extends Frame {
     }
 
     @Override
-    public ru.vladrus13.jgraphic.basic.event.Event keyPressed(KeyEvent e) {
-        return null;
+    public void keyPressed(KeyEvent e) {
     }
 
     @Override
-    public ru.vladrus13.jgraphic.basic.event.Event mousePressed(MouseEvent e) {
-        return null;
+    public void mousePressed(MouseEvent e) {
     }
 }

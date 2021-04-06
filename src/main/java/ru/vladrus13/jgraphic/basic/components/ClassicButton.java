@@ -40,16 +40,14 @@ public class ClassicButton extends Button {
     }
 
     @Override
-    public Event keyPressed(KeyEvent e) {
+    public void keyPressed(KeyEvent e) {
         if (e.getKeyCode() == KeyEvent.VK_ENTER) {
-            return event;
+            callEvent(event);
         }
-        return new IntEvent(IntEvent.NOTHING);
     }
 
     @Override
-    public Event mousePressed(MouseEvent e) {
-        return new IntEvent(IntEvent.NOTHING);
+    public void mousePressed(MouseEvent e) {
     }
 
     /**

@@ -1,6 +1,7 @@
 package ru.vladrus13.jgraphic.basic;
 
 
+import ru.vladrus13.jgraphic.basic.event.Event;
 import ru.vladrus13.jgraphic.bean.CoordinatesType;
 import ru.vladrus13.jgraphic.bean.Point;
 import ru.vladrus13.jgraphic.bean.Size;
@@ -202,5 +203,11 @@ public abstract class Frame extends Drawn implements Focus {
 
     public void removeChild(Frame frame) {
         childes.remove(frame);
+    }
+
+    public void callEvent(Event event) {
+        if (parent != null) {
+            parent.callEvent(event);
+        }
     }
 }

@@ -25,11 +25,11 @@ public class Choose extends Frame implements KeyTaker {
     /**
      * List of buttons
      */
-    private final ArrayList<Button> buttons;
+    public final ArrayList<Button> buttons;
     /**
      * Number of current button. If button doesn't exist is zero
      */
-    private int current;
+    public int current;
 
     /**
      * Standard constructor for class

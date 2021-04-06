@@ -5,6 +5,7 @@ import ru.vladrus13.jgraphic.basic.event.Event;
 
 import java.util.function.Consumer;
 
+@Deprecated
 public class FrameConsumerEvent extends Event {
     public final Consumer<Frame> consumer;
 

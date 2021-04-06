@@ -2,6 +2,7 @@ package ru.vladrus13.jgraphic.basic.components;
 
 import ru.vladrus13.jgraphic.basic.Frame;
 import ru.vladrus13.jgraphic.basic.event.Event;
+import ru.vladrus13.jgraphic.basic.event.impl.CollectionEvent;
 import ru.vladrus13.jgraphic.basic.event.impl.IntEvent;
 import ru.vladrus13.jgraphic.bean.Point;
 import ru.vladrus13.jgraphic.bean.Size;
@@ -44,6 +45,11 @@ public class ClassicButton extends Button {
     @Override
     public void keyPressed(KeyEvent e) {
         if (e.getKeyCode() == KeyEvent.VK_ENTER && keyEvent != null) {
+            if (keyEvent instanceof CollectionEvent) {
+                for (Event event : ((CollectionEvent) keyEvent).events) {
+                    callEvent(event);
+                }
+            }
             callEvent(keyEvent);
         }
     }

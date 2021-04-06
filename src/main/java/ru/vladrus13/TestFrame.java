@@ -6,6 +6,7 @@ import ru.vladrus13.jgraphic.basic.components.Background;
 import ru.vladrus13.jgraphic.basic.components.Choose;
 import ru.vladrus13.jgraphic.basic.components.Filler;
 import ru.vladrus13.jgraphic.basic.components.Text;
+import ru.vladrus13.jgraphic.basic.event.Event;
 import ru.vladrus13.jgraphic.bean.CoordinatesType;
 import ru.vladrus13.jgraphic.bean.Point;
 import ru.vladrus13.jgraphic.bean.Size;
@@ -48,7 +49,7 @@ public class TestFrame extends Frame {
         try {
             choose1 = Choose.getInstance("choose", 3, new Point(100, 100, CoordinatesType.RATIO),
                     new Size(800, 800, CoordinatesType.RATIO), this, new Size(800, 100, CoordinatesType.RATIO),
-                    new String[]{"1", "23", "456"}, buttonFactory, textFactory);
+                    new String[]{"1", "23", "456"}, new Event[]{null, null, null}, new Event[]{null, null, null}, buttonFactory, textFactory);
             choose1.recalculate();
         } catch (GameException e) {
             e.printStackTrace();

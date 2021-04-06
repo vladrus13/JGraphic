@@ -21,7 +21,9 @@ public class ClassicButton extends Button {
     /**
      * Event if button activate
      */
-    private Event event = new IntEvent(IntEvent.PRESSED);
+    private Event keyEvent = new IntEvent(IntEvent.PRESSED);
+
+    private Event mouseEvent = new IntEvent(IntEvent.PRESSED);
 
     /**
      * Classic frame constructor for button
@@ -41,8 +43,8 @@ public class ClassicButton extends Button {
 
     @Override
     public void keyPressed(KeyEvent e) {
-        if (e.getKeyCode() == KeyEvent.VK_ENTER) {
-            callEvent(event);
+        if (e.getKeyCode() == KeyEvent.VK_ENTER && keyEvent != null) {
+            callEvent(keyEvent);
         }
     }
 
@@ -56,8 +58,19 @@ public class ClassicButton extends Button {
      * @param event event
      * @return this button
      */
-    public ClassicButton setEvent(Event event) {
-        this.event = event;
+    public ClassicButton setEventKey(Event event) {
+        this.keyEvent = event;
+        return this;
+    }
+
+    /**
+     * Set event on activate click
+     *
+     * @param event event
+     * @return this button
+     */
+    public ClassicButton setEventMouse(Event event) {
+        this.mouseEvent = event;
         return this;
     }
 }

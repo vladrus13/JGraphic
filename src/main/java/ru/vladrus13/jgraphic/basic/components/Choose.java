@@ -173,7 +173,7 @@ public class Choose extends Frame implements KeyTaker {
     }
 
     public static Choose getInstance(String name, int count, Point start, Size size, Frame parent,
-                                     Size buttonSize, String[] texts,
+                                     Size buttonSize, String[] texts, Event[] keyEvents, Event[] mouseEvents,
                                      ButtonFactory buttonFactory, TextFactory textFactory) throws GameException {
         if (count != texts.length) {
             throw new IllegalArgumentException("Size of array not equals with count of buttons");
@@ -183,7 +183,9 @@ public class Choose extends Frame implements KeyTaker {
         Point fullStart = new Point(0, 0, CoordinatesType.RATIO);
         for (int i = 0; i < count; i++) {
             Text text = textFactory.getInstance("text", texts[i], null);
-            Button button = buttonFactory.getInstance("button" + i, text, null);
+            ClassicButton button = buttonFactory.getInstance("button" + i, text, null);
+            button.setEventKey(keyEvents[i]);
+            button.setEventMouse(mouseEvents[i]);
             text.setParent(button);
             text.setFrame(fullSize, fullStart);
             buttons[i] = button;

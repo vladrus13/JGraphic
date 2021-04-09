@@ -109,7 +109,7 @@ public class Text extends Frame {
         if (fontSize.coordinatesType == CoordinatesType.RATIO) {
             logger.warning("Can't add font size on non-size text");
         } else {
-            font.deriveFont(fontSize.x);
+            font = font.deriveFont(fontSize.x);
         }
         this.textAlign = textAlign;
         this.fontSize = fontSize;

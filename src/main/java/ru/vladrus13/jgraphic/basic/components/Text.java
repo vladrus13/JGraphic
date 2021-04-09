@@ -106,6 +106,11 @@ public class Text extends Frame {
         this.text = text;
         this.color = color;
         this.font = FontService.getFont(nameFont);
+        if (fontSize.coordinatesType == CoordinatesType.RATIO) {
+            logger.warning("Can't add font size on non-size text");
+        } else {
+            font.deriveFont(fontSize.x);
+        }
         this.textAlign = textAlign;
         this.fontSize = fontSize;
     }

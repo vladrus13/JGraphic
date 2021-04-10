@@ -58,7 +58,7 @@ public abstract class Frame extends Drawn implements Focus {
      * Logger class
      */
     protected final Logger logger = Logger.getLogger(Frame.class.getName());
-    protected final String name;
+    public final String name;
     protected final Collection<Frame> childes;
 
     /**
@@ -83,7 +83,12 @@ public abstract class Frame extends Drawn implements Focus {
         childes = new ArrayList<>();
     }
 
+    @Deprecated
     public void setFrame(Size size, Point start) {
+        setFrame(start, size);
+    }
+
+    public void setFrame(Point start, Size size) {
         if (start != null) {
             if (start.coordinatesType == CoordinatesType.REAL) {
                 this.start = start;
@@ -209,5 +214,9 @@ public abstract class Frame extends Drawn implements Focus {
         if (parent != null) {
             parent.callEvent(event);
         }
+    }
+
+    public Frame getParent() {
+        return parent;
     }
 }

@@ -219,4 +219,11 @@ public abstract class Frame extends Drawn implements Focus {
     public Frame getParent() {
         return parent;
     }
+
+    public String toString() {
+        return String.format("name: %s, start: %s, size: %s",
+                name,
+                start == null ? "null" : start.toString(),
+                size == null ? "null" : size.toString());
+    }
 }

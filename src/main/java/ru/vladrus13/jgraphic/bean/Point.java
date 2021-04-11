@@ -85,4 +85,20 @@ public class Point {
     public int hashCode() {
         return Objects.hash(x, y, coordinatesType);
     }
+
+    @Override
+    public String toString() {
+        return "[" +
+                "x = " + x +
+                ", y = " + y +
+                ']';
+    }
+
+    public String toLongString() {
+        return "[" +
+                "x = " + x +
+                ", y = " + y +
+                ", coordinatesType = " + coordinatesType +
+                ']';
+    }
 }

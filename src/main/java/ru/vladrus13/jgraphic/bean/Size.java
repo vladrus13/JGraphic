@@ -38,4 +38,20 @@ public class Size {
     public Size copy() {
         return new Size(x, y, coordinatesType);
     }
+
+    @Override
+    public String toString() {
+        return "[" +
+                "x = " + x +
+                ", y = " + y +
+                ']';
+    }
+
+    public String toLongString() {
+        return "[" +
+                "x = " + x +
+                ", y = " + y +
+                ", coordinatesType = " + coordinatesType +
+                ']';
+    }
 }

@@ -30,8 +30,7 @@ public class Writer {
         ArrayList<String> names = new ArrayList<>();
         Frame temp = frame;
         while (temp != null) {
-            names.add(String.format("%s [Start: %d %d, Size: %d %d]",
-                    temp.name, temp.getStart().x, temp.getStart().y, temp.getSize().x, temp.getSize().y));
+            names.add(temp.toString());
             temp = temp.getParent();
         }
         Collections.reverse(names);

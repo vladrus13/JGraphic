@@ -7,10 +7,12 @@ import ru.vladrus13.jgraphic.bean.Point;
 import ru.vladrus13.jgraphic.bean.Size;
 import ru.vladrus13.jgraphic.exception.GameException;
 import ru.vladrus13.jgraphic.services.FontService;
+import ru.vladrus13.jgraphic.utils.Writer;
 
 import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
+import java.util.logging.Level;
 
 /**
  * Text class. Using for drawing text on screen
@@ -107,7 +109,7 @@ public class Text extends Frame {
         this.color = color;
         this.font = FontService.getFont(nameFont);
         if (fontSize.coordinatesType == CoordinatesType.RATIO) {
-            logger.warning("Can't add font size on non-size text");
+            Writer.printFullWarning(logger, this, Level.WARNING,"Can't add font size on non-size text");
         } else {
             font = font.deriveFont(fontSize.x);
         }
@@ -142,10 +144,10 @@ public class Text extends Frame {
                 int textHeightStart = textStartPosition;
                 textStartPosition += textHeight;
                 if (textStartPosition > size.y) {
-                    logger.warning("Text size greater than size of panel: y");
+                    Writer.printFullWarning(logger, this, Level.WARNING,"Text size greater than size of panel: y");
                 }
                 if (textWidth > size.x) {
-                    logger.warning("Text size greater than size of panel: x");
+                    Writer.printFullWarning(logger, this, Level.WARNING,"Text size greater than size of panel: x");
                 }
                 int textWidthStart = -1;
                 switch (textAlign) {

@@ -1,6 +1,5 @@
 .idea
 target
 /target/
-/.gradle/
-/gradle/
 /build/
+/.gradle/

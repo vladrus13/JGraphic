@@ -23,6 +23,6 @@ dependencies {
 }
 
 application {
-    mainModule = 'ru.vladrus13' as Property<String>
-    mainClass = 'ru.vladrus13.TestLauncher' as Property<String>
+    mainModule = 'ru.vladrus13'
+    mainClass = 'ru.vladrus13.TestLauncher'
 }

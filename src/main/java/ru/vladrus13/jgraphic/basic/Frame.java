@@ -1,6 +1,5 @@
 package ru.vladrus13.jgraphic.basic;
 
-
 import ru.vladrus13.jgraphic.basic.event.Event;
 import ru.vladrus13.jgraphic.bean.CoordinatesType;
 import ru.vladrus13.jgraphic.bean.Point;

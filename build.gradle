@@ -20,9 +20,9 @@ sourceSets {
     }
 }
 dependencies {
-    compile 'junit:junit:4.12'
 }
 
 application {
-    mainClass = 'ru.vladrus13.TestLauncher'
+    mainModule = 'ru.vladrus13' as Property<String>
+    mainClass = 'ru.vladrus13.TestLauncher' as Property<String>
 }

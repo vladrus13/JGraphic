@@ -1,6 +1,7 @@
 package ru.vladrus13.jgraphic.resources;
 
 import ru.vladrus13.jgraphic.exception.GameException;
+import ru.vladrus13.jgraphic.property.MainProperty;
 
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
@@ -22,7 +23,7 @@ public class ImageLoader {
     /**
      * Resources path
      */
-    private final static Path resourcesPath = Path.of("src").resolve("main").resolve("resources").resolve("graphic");
+    private final static Path resourcesPath = Path.of(MainProperty.get("resources.path")).resolve("graphic");
 
     /**
      * Return image from resources

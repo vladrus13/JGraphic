@@ -49,7 +49,7 @@ public class Text extends Frame {
     /**
      * Text
      */
-    private final String text;
+    private String text;
     private String[] splitText;
     private Point[] splitTextHeight;
     /**
@@ -164,5 +164,14 @@ public class Text extends Frame {
                 splitTextHeight[position] = new Point(start.x + textWidthStart, start.y + textHeightStart, CoordinatesType.REAL);
             }
         }
+    }
+
+    /**
+     * Setter for text
+     * @param text text on frame
+     */
+    public void setText(String text) {
+        this.text = text;
+        recalculateChildes();
     }
 }

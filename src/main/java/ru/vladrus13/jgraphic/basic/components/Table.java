@@ -58,6 +58,9 @@ public class Table extends UpdatedFrame {
         table = new EmptyFrame[width][height];
         for (int i = 0; i < width; i++) {
             for (int j = 0; j < height; j++) {
+                if (frames[i][j] == null) {
+                    continue;
+                }
                 if (onePieceSize == null) {
                     table[i][j] = new EmptyFrame("table_" + i + "_" + j, this);
                 } else {
@@ -77,7 +80,9 @@ public class Table extends UpdatedFrame {
         }
         for (EmptyFrame[] it : table) {
             for (EmptyFrame jt : it) {
-                jt.recalculate();
+                if (jt != null) {
+                    jt.recalculate();
+                }
             }
         }
     }

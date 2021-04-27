@@ -26,7 +26,9 @@ public class Table extends UpdatedFrame {
         if (table != null) {
             for (EmptyFrame[] it : table) {
                 for (EmptyFrame jt : it) {
-                    jt.update(delay);
+                    if (jt != null) {
+                        jt.update(delay);
+                    }
                 }
             }
         }
@@ -37,7 +39,9 @@ public class Table extends UpdatedFrame {
         if (table != null) {
             for (EmptyFrame[] it : table) {
                 for (EmptyFrame jt : it) {
-                    jt.draw(graphics);
+                    if (jt != null) {
+                        jt.draw(graphics);
+                    }
                 }
             }
         }

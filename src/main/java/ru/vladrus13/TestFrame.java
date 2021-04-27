@@ -3,14 +3,13 @@ package ru.vladrus13;
 import ru.vladrus13.graphic.Graphics;
 import ru.vladrus13.jgraphic.basic.Frame;
 import ru.vladrus13.jgraphic.basic.components.Background;
-import ru.vladrus13.jgraphic.basic.components.Choose;
 import ru.vladrus13.jgraphic.basic.components.Filler;
+import ru.vladrus13.jgraphic.basic.components.Table;
 import ru.vladrus13.jgraphic.basic.components.Text;
-import ru.vladrus13.jgraphic.basic.event.Event;
 import ru.vladrus13.jgraphic.bean.CoordinatesType;
 import ru.vladrus13.jgraphic.bean.Point;
 import ru.vladrus13.jgraphic.bean.Size;
-import ru.vladrus13.jgraphic.exception.GameException;
+import ru.vladrus13.jgraphic.exception.AppException;
 import ru.vladrus13.jgraphic.factory.components.ButtonFactory;
 import ru.vladrus13.jgraphic.factory.components.TextFactory;
 
@@ -23,7 +22,7 @@ import java.awt.event.MouseEvent;
  **/
 public class TestFrame extends Frame {
 
-    private final Choose choose;
+    private final Table table;
 
     /**
      * Standard constructor for Frame
@@ -35,7 +34,6 @@ public class TestFrame extends Frame {
      */
     public TestFrame(String name, Point start, Size size, Frame parent) {
         super(name, start, size, parent);
-        Choose choose1;
         Size fullSize = new Size(1000, 1000, CoordinatesType.RATIO);
         Point fullStart = new Point(0, 0, CoordinatesType.RATIO);
         ButtonFactory buttonFactory = new ButtonFactory()
@@ -46,30 +44,33 @@ public class TestFrame extends Frame {
                 .setColor(Color.BLACK)
                 .setFontSize(new Size(300, 0, CoordinatesType.RATIO))
                 .setTextAlign(Text.TextAlign.CENTER);
+        table = new Table("Table", new Point(0, 0, CoordinatesType.REAL), new Size(1000, 1000, CoordinatesType.RATIO), this);
+        Frame[][] frames = new Frame[3][3];
         try {
-            choose1 = Choose.getInstance("choose", 3, new Point(100, 100, CoordinatesType.RATIO),
-                    new Size(800, 800, CoordinatesType.RATIO), this, new Size(800, 100, CoordinatesType.RATIO),
-                    new String[]{"1", "23", "456"}, new Event[]{null, null, null}, new Event[]{null, null, null}, buttonFactory, textFactory);
-            choose1.recalculate();
-        } catch (GameException e) {
+            for (int i = 0; i < 3; i++) {
+                for (int j = 0; j < 3; j++) {
+                    frames[i][j] = textFactory.getInstance(i + "_" + j, i + "_" + j, table);
+                    frames[i][j].setFrame(new Point(0, 0, CoordinatesType.RATIO), new Size(1000, 1000, CoordinatesType.RATIO));
+                }
+            }
+        } catch (AppException e) {
             e.printStackTrace();
-            choose1 = null;
         }
-        choose = choose1;
+        table.setTable(frames);
         recalculateChildes();
     }
 
     @Override
     protected void nonCheckingDraw(Graphics graphics) {
-        if (choose != null) {
-            choose.draw(graphics);
+        if (table != null) {
+            table.draw(graphics);
         }
     }
 
     @Override
     public void recalculateChildes() {
-        if (choose != null) {
-            choose.recalculate();
+        if (table != null) {
+            table.recalculate();
         }
     }
 

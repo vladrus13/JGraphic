@@ -5,7 +5,7 @@ import ru.vladrus13.jgraphic.basic.Frame;
 import ru.vladrus13.jgraphic.bean.CoordinatesType;
 import ru.vladrus13.jgraphic.bean.Point;
 import ru.vladrus13.jgraphic.bean.Size;
-import ru.vladrus13.jgraphic.exception.GameException;
+import ru.vladrus13.jgraphic.exception.AppException;
 import ru.vladrus13.jgraphic.services.FontService;
 import ru.vladrus13.jgraphic.utils.Writer;
 
@@ -19,45 +19,6 @@ import java.util.logging.Level;
  */
 public class Text extends Frame {
 
-    @Override
-    public void keyPressed(KeyEvent e) {
-    }
-
-    @Override
-    public void mousePressed(MouseEvent e) {
-
-    }
-
-    /**
-     * Text align. Helper class for {@link Text}
-     */
-    public enum TextAlign {
-        /**
-         * Center align enum
-         */
-        CENTER,
-        /**
-         * Left align enum
-         */
-        LEFT,
-        /**
-         * Right align enum
-         */
-        RIGHT
-    }
-
-    /**
-     * Text
-     */
-    private String text;
-    private String[] splitText;
-    private Point[] splitTextHeight;
-    /**
-     * Font for text
-     *
-     * @see Font
-     */
-    private Font font;
     /**
      * Color for text
      *
@@ -74,7 +35,18 @@ public class Text extends Frame {
      * Font size. Only need x-axis and type
      */
     private final Size fontSize;
-
+    /**
+     * Text
+     */
+    private String text;
+    private String[] splitText;
+    private Point[] splitTextHeight;
+    /**
+     * Font for text
+     *
+     * @see Font
+     */
+    private Font font;
     /**
      * Classic frame constructor for Text class. The text is contained in a rectangle given by size and start
      *
@@ -87,12 +59,12 @@ public class Text extends Frame {
      * @param color     color of text.
      * @param textAlign text align
      * @param parent    parent frame
-     * @throws GameException if we can't load a font
+     * @throws AppException if we can't load a font
      * @see Color
      * @see Font
      * @see TextAlign
      */
-    public Text(String name, Point start, Size size, String text, String nameFont, Size fontSize, Color color, TextAlign textAlign, Frame parent) throws GameException {
+    public Text(String name, Point start, Size size, String text, String nameFont, Size fontSize, Color color, TextAlign textAlign, Frame parent) throws AppException {
         super(name, start, size, parent);
         this.text = text;
         this.color = color;
@@ -102,8 +74,7 @@ public class Text extends Frame {
         this.fontSize = fontSize;
         recalculateChildes();
     }
-
-    public Text(String name, String text, String nameFont, Size fontSize, Color color, TextAlign textAlign, Frame parent) throws GameException {
+    public Text(String name, String text, String nameFont, Size fontSize, Color color, TextAlign textAlign, Frame parent) throws AppException {
         super(name, parent);
         this.text = text;
         this.color = color;
@@ -118,6 +89,15 @@ public class Text extends Frame {
     }
 
     @Override
+    public void keyPressed(KeyEvent e) {
+    }
+
+    @Override
+    public void mousePressed(MouseEvent e) {
+
+    }
+
+    @Override
     public void nonCheckingDraw(Graphics graphics) {
         graphics.setColor(color);
         graphics.setFont(font);
@@ -128,7 +108,6 @@ public class Text extends Frame {
 
     @Override
     public void recalculateChildes() {
-        // TODO make two or more strings on one text
         if (text != null && fontSize != null && size != null) {
             if (fontSize.coordinatesType == CoordinatesType.RATIO) {
                 float newSizeFont = (fontSize.x * size.y) / 1000f;
@@ -168,10 +147,29 @@ public class Text extends Frame {
 
     /**
      * Setter for text
+     *
      * @param text text on frame
      */
     public void setText(String text) {
         this.text = text;
         recalculateChildes();
+    }
+
+    /**
+     * Text align. Helper class for {@link Text}
+     */
+    public enum TextAlign {
+        /**
+         * Center align enum
+         */
+        CENTER,
+        /**
+         * Left align enum
+         */
+        LEFT,
+        /**
+         * Right align enum
+         */
+        RIGHT
     }
 }

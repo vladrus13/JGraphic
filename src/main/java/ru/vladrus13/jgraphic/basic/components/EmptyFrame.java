@@ -2,13 +2,14 @@ package ru.vladrus13.jgraphic.basic.components;
 
 import ru.vladrus13.graphic.Graphics;
 import ru.vladrus13.jgraphic.basic.Frame;
+import ru.vladrus13.jgraphic.basic.UpdatedFrame;
 import ru.vladrus13.jgraphic.bean.Point;
 import ru.vladrus13.jgraphic.bean.Size;
 
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 
-public class EmptyFrame extends Frame {
+public class EmptyFrame extends UpdatedFrame {
 
     public EmptyFrame(String name, Frame parent) {
         super(name, parent);
@@ -16,6 +17,15 @@ public class EmptyFrame extends Frame {
 
     public EmptyFrame(String name, Point start, Size size, Frame parent) {
         super(name, start, size, parent);
+    }
+
+    @Override
+    protected void nonCheckingUpdate(long delay) {
+        for (Frame child : childes) {
+            if (child instanceof UpdatedFrame) {
+                ((UpdatedFrame) child).update(delay);
+            }
+        }
     }
 
     @Override

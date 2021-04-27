@@ -1,6 +1,6 @@
 package ru.vladrus13.jgraphic.services;
 
-import ru.vladrus13.jgraphic.exception.GameException;
+import ru.vladrus13.jgraphic.exception.AppException;
 
 import java.awt.*;
 import java.io.IOException;
@@ -23,13 +23,13 @@ public class FontService {
      *
      * @param path path to file
      * @return {@link Font}
-     * @throws GameException if we can't find file, or this is incorrect for this OS font
+     * @throws AppException if we can't find file, or this is incorrect for this OS font
      */
-    private static Font createFontFromFile(String path) throws GameException {
+    private static Font createFontFromFile(String path) throws AppException {
         try {
             return Font.createFont(Font.TRUETYPE_FONT, FontService.class.getResourceAsStream("/font/" + path + ".ttf"));
         } catch (FontFormatException | IOException e) {
-            throw new GameException("Error on loading font: " + path, e);
+            throw new AppException("Error on loading font: " + path, e);
         }
     }
 
@@ -38,9 +38,9 @@ public class FontService {
      *
      * @param name name of font
      * @return {@link Font}
-     * @throws GameException if we not found this font and choose create this, but on creating we 1. Can't find file. 2. Incorrect for this OS font
+     * @throws AppException if we not found this font and choose create this, but on creating we 1. Can't find file. 2. Incorrect for this OS font
      */
-    public static Font getFont(String name) throws GameException {
+    public static Font getFont(String name) throws AppException {
         if (!fonts.containsKey(name)) {
             fonts.put(name, createFontFromFile(name));
         }
@@ -53,9 +53,9 @@ public class FontService {
      * @param name name of font
      * @param size size of font
      * @return {@link Font}
-     * @throws GameException if we not found this font and choose create this, but on creating we 1. Can't find file. 2. Incorrect for this OS font
+     * @throws AppException if we not found this font and choose create this, but on creating we 1. Can't find file. 2. Incorrect for this OS font
      */
-    public static Font getFont(String name, int size) throws GameException {
+    public static Font getFont(String name, int size) throws AppException {
         return getFont(name).deriveFont(Font.PLAIN, size);
     }
 

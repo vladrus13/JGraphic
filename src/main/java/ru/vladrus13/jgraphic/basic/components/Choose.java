@@ -8,7 +8,7 @@ import ru.vladrus13.jgraphic.basic.event.impl.ChooseEvent;
 import ru.vladrus13.jgraphic.bean.CoordinatesType;
 import ru.vladrus13.jgraphic.bean.Point;
 import ru.vladrus13.jgraphic.bean.Size;
-import ru.vladrus13.jgraphic.exception.GameException;
+import ru.vladrus13.jgraphic.exception.AppException;
 import ru.vladrus13.jgraphic.factory.components.ButtonFactory;
 import ru.vladrus13.jgraphic.factory.components.TextFactory;
 
@@ -50,6 +50,77 @@ public class Choose extends Frame implements KeyTaker {
         super(name, parent);
         this.buttons = new ArrayList<>();
         current = 0;
+    }
+
+    /**
+     * Get choose from all buttons
+     *
+     * @param name       name of choose
+     * @param count      count of buttons
+     * @param start      start position of choose
+     * @param size       size of choose
+     * @param parent     parent frame of choose
+     * @param buttonSize button size of choose
+     * @param buttons    buttons array
+     * @return choose
+     * @throws AppException if we have problems with size of buttons and choose
+     */
+    public static Choose getInstance(String name, int count, Point start, Size size, Frame parent,
+                                     Size buttonSize, Button[] buttons) throws AppException {
+        if (count != buttons.length) {
+            throw new IllegalArgumentException("Size of array not equals with count of buttons");
+        }
+        Choose choose = new Choose(name, start, size, parent);
+        if (choose.size.x < buttonSize.x && buttonSize.coordinatesType == CoordinatesType.REAL) {
+            throw new AppException("Size of button can't be greater than choose size: x");
+        }
+        if (choose.size.y < buttonSize.y * count && buttonSize.coordinatesType == CoordinatesType.REAL) {
+            throw new AppException("Size of buttons can't be greater than choose size: y");
+        }
+        if (buttonSize.x > 1000 && buttonSize.coordinatesType == CoordinatesType.RATIO) {
+            throw new AppException("Size of button on ratio can't be greater than choose size: x");
+        }
+        if (buttonSize.y * count > 1000 && buttonSize.coordinatesType == CoordinatesType.RATIO) {
+            throw new AppException("Size of buttons on ratio can't be greater than choose size: y");
+        }
+        long underX;
+        long underY;
+        if (buttonSize.coordinatesType == CoordinatesType.RATIO) {
+            underX = (1000 - buttonSize.x) / 2;
+            underY = (1000 - count * buttonSize.y) / (count + 1);
+        } else {
+            underX = (choose.size.x - buttonSize.x) / 2;
+            underY = (choose.size.y - buttonSize.y * count) / (count + 1);
+        }
+        for (int i = 0; i < count; i++) {
+            Point point = new Point(underX, underY * (i + 1) + buttonSize.y * i, buttonSize.coordinatesType);
+            buttons[i].setFrame(point, buttonSize.copy());
+            choose.addButton(buttons[i]);
+            buttons[i].setParent(choose);
+        }
+        choose.recalculate();
+        return choose;
+    }
+
+    public static Choose getInstance(String name, int count, Point start, Size size, Frame parent,
+                                     Size buttonSize, String[] texts, Event[] keyEvents, Event[] mouseEvents,
+                                     ButtonFactory buttonFactory, TextFactory textFactory) throws AppException {
+        if (count != texts.length) {
+            throw new IllegalArgumentException("Size of array not equals with count of buttons");
+        }
+        Button[] buttons = new Button[count];
+        Size fullSize = new Size(1000, 1000, CoordinatesType.RATIO);
+        Point fullStart = new Point(0, 0, CoordinatesType.RATIO);
+        for (int i = 0; i < count; i++) {
+            Text text = textFactory.getInstance("text", texts[i], null);
+            ClassicButton button = buttonFactory.getInstance("button" + i, text, null);
+            button.setEventKey(keyEvents[i]);
+            button.setEventMouse(mouseEvents[i]);
+            text.setParent(button);
+            text.setFrame(fullSize, fullStart);
+            buttons[i] = button;
+        }
+        return getInstance(name, count, start, size, parent, buttonSize, buttons);
     }
 
     @Override
@@ -96,8 +167,8 @@ public class Choose extends Frame implements KeyTaker {
                     try {
                         parent.removeFocused(this);
                         parent.removeChild(this);
-                    } catch (GameException gameException) {
-                        gameException.printStackTrace();
+                    } catch (AppException appException) {
+                        appException.printStackTrace();
                     }
             }
             return;
@@ -120,76 +191,5 @@ public class Choose extends Frame implements KeyTaker {
             button.setChoose(true);
         }
         buttons.add(button);
-    }
-
-    /**
-     * Get choose from all buttons
-     *
-     * @param name       name of choose
-     * @param count      count of buttons
-     * @param start      start position of choose
-     * @param size       size of choose
-     * @param parent     parent frame of choose
-     * @param buttonSize button size of choose
-     * @param buttons    buttons array
-     * @return choose
-     * @throws GameException if we have problems with size of buttons and choose
-     */
-    public static Choose getInstance(String name, int count, Point start, Size size, Frame parent,
-                                     Size buttonSize, Button[] buttons) throws GameException {
-        if (count != buttons.length) {
-            throw new IllegalArgumentException("Size of array not equals with count of buttons");
-        }
-        Choose choose = new Choose(name, start, size, parent);
-        if (choose.size.x < buttonSize.x && buttonSize.coordinatesType == CoordinatesType.REAL) {
-            throw new GameException("Size of button can't be greater than choose size: x");
-        }
-        if (choose.size.y < buttonSize.y * count && buttonSize.coordinatesType == CoordinatesType.REAL) {
-            throw new GameException("Size of buttons can't be greater than choose size: y");
-        }
-        if (buttonSize.x > 1000 && buttonSize.coordinatesType == CoordinatesType.RATIO) {
-            throw new GameException("Size of button on ratio can't be greater than choose size: x");
-        }
-        if (buttonSize.y * count > 1000 && buttonSize.coordinatesType == CoordinatesType.RATIO) {
-            throw new GameException("Size of buttons on ratio can't be greater than choose size: y");
-        }
-        long underX;
-        long underY;
-        if (buttonSize.coordinatesType == CoordinatesType.RATIO) {
-            underX = (1000 - buttonSize.x) / 2;
-            underY = (1000 - count * buttonSize.y) / (count + 1);
-        } else {
-            underX = (choose.size.x - buttonSize.x) / 2;
-            underY = (choose.size.y - buttonSize.y * count) / (count + 1);
-        }
-        for (int i = 0; i < count; i++) {
-            Point point = new Point(underX, underY * (i + 1) + buttonSize.y * i, buttonSize.coordinatesType);
-            buttons[i].setFrame(buttonSize.copy(), point);
-            choose.addButton(buttons[i]);
-            buttons[i].setParent(choose);
-        }
-        choose.recalculate();
-        return choose;
-    }
-
-    public static Choose getInstance(String name, int count, Point start, Size size, Frame parent,
-                                     Size buttonSize, String[] texts, Event[] keyEvents, Event[] mouseEvents,
-                                     ButtonFactory buttonFactory, TextFactory textFactory) throws GameException {
-        if (count != texts.length) {
-            throw new IllegalArgumentException("Size of array not equals with count of buttons");
-        }
-        Button[] buttons = new Button[count];
-        Size fullSize = new Size(1000, 1000, CoordinatesType.RATIO);
-        Point fullStart = new Point(0, 0, CoordinatesType.RATIO);
-        for (int i = 0; i < count; i++) {
-            Text text = textFactory.getInstance("text", texts[i], null);
-            ClassicButton button = buttonFactory.getInstance("button" + i, text, null);
-            button.setEventKey(keyEvents[i]);
-            button.setEventMouse(mouseEvents[i]);
-            text.setParent(button);
-            text.setFrame(fullSize, fullStart);
-            buttons[i] = button;
-        }
-        return getInstance(name, count, start, size, parent, buttonSize, buttons);
     }
 }

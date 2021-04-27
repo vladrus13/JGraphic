@@ -25,6 +25,13 @@ public class Writer {
         logger.severe(stringWriter.toString());
     }
 
+    public static void failedPrintStackTrace(Logger logger, Exception e) {
+        StringWriter stringWriter = new StringWriter();
+        e.printStackTrace(new PrintWriter(stringWriter));
+        logger.severe(stringWriter.toString());
+        e.printStackTrace();
+    }
+
     public static void printFullWarning(Logger logger, Frame frame, Level level, String message) {
         StringWriter stringWriter = new StringWriter();
         ArrayList<String> names = new ArrayList<>();

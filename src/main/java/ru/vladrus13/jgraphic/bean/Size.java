@@ -54,4 +54,14 @@ public class Size {
                 ", coordinatesType = " + coordinatesType +
                 ']';
     }
+
+    public Size multiply(long produce) {
+        return new Size(x * produce, y * produce, coordinatesType);
+    }
+
+    public Size multiply(long a, long b) {
+        return new Size(x * a, y * b, coordinatesType);
+    }
+
+
 }

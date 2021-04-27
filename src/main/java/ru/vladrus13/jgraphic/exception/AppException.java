@@ -4,13 +4,13 @@ package ru.vladrus13.jgraphic.exception;
  * @author vladkuznetsov
  * Exception class for game
  */
-public class GameException extends Exception {
+public class AppException extends Exception {
     /**
      * Constructor for exception
      *
      * @param s message
      */
-    public GameException(String s) {
+    public AppException(String s) {
         super(s);
     }
 
@@ -20,7 +20,7 @@ public class GameException extends Exception {
      * @param s message
      * @param e suppressed exception
      */
-    public GameException(String s, Exception e) {
+    public AppException(String s, Exception e) {
         super(s, e);
     }
 
@@ -29,7 +29,7 @@ public class GameException extends Exception {
      *
      * @param e suppressed exception
      */
-    public GameException(Exception e) {
+    public AppException(Exception e) {
         super(e);
     }
 }

@@ -1,11 +1,13 @@
 module ru.vladrus13.jgraphic {
-    requires java.desktop;
-    requires java.logging;
+    requires transitive java.desktop;
+    requires transitive java.logging;
     exports ru.vladrus13.graphic;
     exports ru.vladrus13.jgraphic;
+    exports ru.vladrus13.jgraphic.basic.animation;
     exports ru.vladrus13.jgraphic.basic.components;
     exports ru.vladrus13.jgraphic.basic.event;
     exports ru.vladrus13.jgraphic.basic.event.impl;
+    exports ru.vladrus13.jgraphic.basic.event.impl.animation;
     exports ru.vladrus13.jgraphic.basic;
     exports ru.vladrus13.jgraphic.bean;
     exports ru.vladrus13.jgraphic.exception;

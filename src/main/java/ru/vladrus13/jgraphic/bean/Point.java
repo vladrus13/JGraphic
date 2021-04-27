@@ -44,6 +44,13 @@ public class Point {
         this.coordinatesType = CoordinatesType.REAL;
     }
 
+    public Point(Size size) {
+        this.x = size.x;
+        this.y = size.y;
+        this.coordinatesType = size.coordinatesType;
+
+    }
+
     /**
      * Create copy of point
      *

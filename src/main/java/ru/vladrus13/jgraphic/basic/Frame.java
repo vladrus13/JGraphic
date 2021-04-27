@@ -4,9 +4,11 @@ import ru.vladrus13.jgraphic.basic.event.Event;
 import ru.vladrus13.jgraphic.bean.CoordinatesType;
 import ru.vladrus13.jgraphic.bean.Point;
 import ru.vladrus13.jgraphic.bean.Size;
-import ru.vladrus13.jgraphic.exception.GameException;
+import ru.vladrus13.jgraphic.exception.AppException;
 import ru.vladrus13.jgraphic.utils.Ratio;
 
+import java.awt.event.KeyEvent;
+import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Deque;
@@ -21,6 +23,16 @@ import java.util.logging.Logger;
  */
 public abstract class Frame extends Drawn implements Focus {
 
+    public final String name;
+    /**
+     * Focused class. The top deque is called on keyboard or mouse events
+     */
+    protected final Deque<Frame> focused = new LinkedList<>();
+    /**
+     * Logger class
+     */
+    protected final Logger logger = Logger.getLogger(Frame.class.getName());
+    protected final Collection<Frame> childes;
     /**
      * Real start position on screen
      */
@@ -49,16 +61,6 @@ public abstract class Frame extends Drawn implements Focus {
      * Type of size
      */
     protected CoordinatesType sizeType;
-    /**
-     * Focused class. The top deque is called on keyboard or mouse events
-     */
-    protected final Deque<Frame> focused = new LinkedList<>();
-    /**
-     * Logger class
-     */
-    protected final Logger logger = Logger.getLogger(Frame.class.getName());
-    public final String name;
-    protected final Collection<Frame> childes;
 
     /**
      * Standard constructor for Frame
@@ -145,16 +147,6 @@ public abstract class Frame extends Drawn implements Focus {
     }
 
     /**
-     * Set new parent for frame
-     *
-     * @param parent new parent
-     */
-    public void setParent(Frame parent) {
-        this.parent = parent;
-        recalculate();
-    }
-
-    /**
      * Getter for real position of frame
      *
      * @return real position of frame
@@ -192,11 +184,11 @@ public abstract class Frame extends Drawn implements Focus {
      * Remove focused from top of deque with equality check
      *
      * @param frame which should be on top of deque
-     * @throws GameException if the wrong frame is on top of the deque
+     * @throws AppException if the wrong frame is on top of the deque
      */
-    public void removeFocused(Frame frame) throws GameException {
+    public void removeFocused(Frame frame) throws AppException {
         if (this.focused.getFirst() != frame) {
-            throw new GameException("Current focused frame not equal removed");
+            throw new AppException("Current focused frame not equal removed");
         }
         removeFocused();
     }
@@ -219,10 +211,34 @@ public abstract class Frame extends Drawn implements Focus {
         return parent;
     }
 
+    /**
+     * Set new parent for frame
+     *
+     * @param parent new parent
+     */
+    public void setParent(Frame parent) {
+        this.parent = parent;
+        recalculate();
+    }
+
     public String toString() {
         return String.format("name: %s, start: %s, size: %s",
                 name,
                 start == null ? "null" : start.toString(),
                 size == null ? "null" : size.toString());
+    }
+
+    @Override
+    public void keyPressed(KeyEvent e) {
+        if (!focused.isEmpty()) {
+            focused.getFirst().keyPressed(e);
+        }
+    }
+
+    @Override
+    public void mousePressed(MouseEvent e) {
+        if (!focused.isEmpty()) {
+            focused.getFirst().mousePressed(e);
+        }
     }
 }

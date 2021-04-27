@@ -1,6 +1,6 @@
 package ru.vladrus13.jgraphic.resources;
 
-import ru.vladrus13.jgraphic.exception.GameException;
+import ru.vladrus13.jgraphic.exception.AppException;
 import ru.vladrus13.jgraphic.property.MainProperty;
 
 import javax.imageio.ImageIO;
@@ -30,14 +30,14 @@ public class ImageLoader {
      *
      * @param name {@link Path} FROM resources
      * @return {@link BufferedImage} with image
-     * @throws GameException If we can't get image
+     * @throws AppException If we can't get image
      */
-    public static BufferedImage load(Path name) throws GameException {
+    public static BufferedImage load(Path name) throws AppException {
         if (!images.containsKey(name.toString())) {
             try {
                 images.put(name.toString(), ImageIO.read(Files.newInputStream(resourcesPath.resolve(name))));
             } catch (IOException e) {
-                throw new GameException("Can't load image: " + name, e);
+                throw new AppException("Can't load image: " + name, e);
             }
         }
         return images.get(name.toString());

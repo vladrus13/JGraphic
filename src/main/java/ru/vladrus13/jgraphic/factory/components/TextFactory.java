@@ -3,7 +3,7 @@ package ru.vladrus13.jgraphic.factory.components;
 import ru.vladrus13.jgraphic.basic.Frame;
 import ru.vladrus13.jgraphic.basic.components.Text;
 import ru.vladrus13.jgraphic.bean.Size;
-import ru.vladrus13.jgraphic.exception.GameException;
+import ru.vladrus13.jgraphic.exception.AppException;
 
 import java.awt.*;
 
@@ -33,7 +33,7 @@ public class TextFactory {
         return this;
     }
 
-    public Text getInstance(String nameButton, String text, Frame parent) throws GameException {
-        return new Text(nameButton, text, nameFont, fontSize.copy(), color, textAlign, parent);
+    public Text getInstance(String name, String text, Frame parent) throws AppException {
+        return new Text(name, text, nameFont, fontSize.copy(), color, textAlign, parent);
     }
 }

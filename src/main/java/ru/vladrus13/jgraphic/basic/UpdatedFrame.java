@@ -25,6 +25,10 @@ public abstract class UpdatedFrame extends Frame implements Updated {
         super(name, start, size, parent);
     }
 
+    public UpdatedFrame(String name, Frame parent) {
+        super(name, parent);
+    }
+
     @Override
     public void update(long delay) {
         if (!isPause) {

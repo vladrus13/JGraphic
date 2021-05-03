@@ -117,7 +117,7 @@ public class Choose extends Frame implements KeyTaker {
             button.setEventKey(keyEvents[i]);
             button.setEventMouse(mouseEvents[i]);
             text.setParent(button);
-            text.setFrame(fullSize, fullStart);
+            text.setFrame(fullStart, fullSize);
             buttons[i] = button;
         }
         return getInstance(name, count, start, size, parent, buttonSize, buttons);

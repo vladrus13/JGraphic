@@ -2,6 +2,7 @@ package ru.vladrus13.jgraphic;
 
 import ru.vladrus13.jgraphic.basic.Frame;
 import ru.vladrus13.jgraphic.basic.UpdatedFrame;
+import ru.vladrus13.jgraphic.property.MainProperty;
 import ru.vladrus13.jgraphic.services.AppService;
 
 import javax.swing.*;
@@ -17,9 +18,9 @@ public abstract class App extends JPanel implements ActionListener, MouseListene
     protected boolean isInterrupted;
 
     public App(int width, int height) {
-        System.out.println("Run class: Test");
         AppService.setApp(this);
-        frame = new JFrame("Test");
+        MainProperty.read();
+        frame = new JFrame(this.getClass().getSimpleName());
         frame.setSize(width, height);
         frame.setBackground(Color.CYAN);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -43,7 +44,7 @@ public abstract class App extends JPanel implements ActionListener, MouseListene
 
     protected void painter() {
         // TODO make FPS better mode
-        long targetTime = 1000 / 60;
+        long targetTime = 1000 / MainProperty.getInteger("window.maxFPS");
         long previousTime = System.currentTimeMillis() - targetTime;
         while (!isInterrupted) {
             long currentTime = System.currentTimeMillis();
@@ -60,5 +61,50 @@ public abstract class App extends JPanel implements ActionListener, MouseListene
             previousTime = System.currentTimeMillis();
             repaint();
         }
+    }
+
+    @Override
+    public void actionPerformed(ActionEvent e) {
+
+    }
+
+    @Override
+    public void keyTyped(KeyEvent e) {
+
+    }
+
+    @Override
+    public void keyPressed(KeyEvent e) {
+
+    }
+
+    @Override
+    public void keyReleased(KeyEvent e) {
+
+    }
+
+    @Override
+    public void mouseClicked(MouseEvent e) {
+
+    }
+
+    @Override
+    public void mousePressed(MouseEvent e) {
+
+    }
+
+    @Override
+    public void mouseReleased(MouseEvent e) {
+
+    }
+
+    @Override
+    public void mouseEntered(MouseEvent e) {
+
+    }
+
+    @Override
+    public void mouseExited(MouseEvent e) {
+
     }
 }

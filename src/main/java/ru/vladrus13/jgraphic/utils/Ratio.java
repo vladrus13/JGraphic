@@ -5,7 +5,7 @@ import ru.vladrus13.jgraphic.bean.Point;
 import ru.vladrus13.jgraphic.bean.Size;
 
 /**
- * Ratio class. Рelps to convert coordinates and dimensions
+ * Ratio class. Helps to convert coordinates and dimensions
  */
 public class Ratio {
     /**

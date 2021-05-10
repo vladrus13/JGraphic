@@ -7,6 +7,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
 
 /**
  * @author vladkuznetsov
@@ -27,7 +28,7 @@ public class FontService {
      */
     private static Font createFontFromFile(String path) throws AppException {
         try {
-            return Font.createFont(Font.TRUETYPE_FONT, FontService.class.getResourceAsStream("/font/" + path + ".ttf"));
+            return Font.createFont(Font.TRUETYPE_FONT, Objects.requireNonNull(FontService.class.getResourceAsStream("/font/" + path + ".ttf")));
         } catch (FontFormatException | IOException e) {
             throw new AppException("Error on loading font: " + path, e);
         }
@@ -83,10 +84,9 @@ public class FontService {
         ArrayList<String> answer = new ArrayList<>();
         int current = 0, last = 0;
         while (current != text.length()) {
-            if (AppService.getApp().getFontMetrics(font).stringWidth(text.substring(last, current)) > width) {
-                current--;
-                answer.add(text.substring(last, current));
-                last = current;
+            if (fontWidth(text.substring(last, current), font) > width) {
+                answer.add(text.substring(last, current - 1));
+                last = current - 1;
             }
             current++;
         }

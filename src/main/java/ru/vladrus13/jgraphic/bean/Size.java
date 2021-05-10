@@ -1,7 +1,7 @@
 package ru.vladrus13.jgraphic.bean;
 
 /**
- * Size class. Class for designating a szie and its type
+ * Size class. Class for designating a size and its type
  */
 public class Size {
     /**

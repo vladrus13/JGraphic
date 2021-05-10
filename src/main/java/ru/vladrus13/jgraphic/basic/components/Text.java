@@ -47,6 +47,7 @@ public class Text extends Frame {
      * @see Font
      */
     private Font font;
+
     /**
      * Classic frame constructor for Text class. The text is contained in a rectangle given by size and start
      *
@@ -74,14 +75,13 @@ public class Text extends Frame {
         this.fontSize = fontSize;
         recalculateChildes();
     }
+
     public Text(String name, String text, String nameFont, Size fontSize, Color color, TextAlign textAlign, Frame parent) throws AppException {
         super(name, parent);
         this.text = text;
         this.color = color;
         this.font = FontService.getFont(nameFont);
-        if (fontSize.coordinatesType == CoordinatesType.RATIO) {
-            Writer.printFullWarning(logger, this, Level.WARNING, "Can't add font size on non-size text");
-        } else {
+        if (fontSize.coordinatesType != CoordinatesType.RATIO) {
             font = font.deriveFont(fontSize.x);
         }
         this.textAlign = textAlign;
@@ -124,9 +124,6 @@ public class Text extends Frame {
                 textStartPosition += textHeight;
                 if (textStartPosition > size.y) {
                     Writer.printFullWarning(logger, this, Level.WARNING, "Text size greater than size of panel: y");
-                }
-                if (textWidth > size.x) {
-                    Writer.printFullWarning(logger, this, Level.WARNING, "Text size greater than size of panel: x");
                 }
                 int textWidthStart = -1;
                 switch (textAlign) {

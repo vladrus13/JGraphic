@@ -7,6 +7,7 @@ import ru.vladrus13.jgraphic.bean.Size;
 import ru.vladrus13.jgraphic.exception.AppException;
 import ru.vladrus13.jgraphic.utils.Ratio;
 
+import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
@@ -21,7 +22,7 @@ import java.util.logging.Logger;
  * This rectangle has its size and is set to the top left point.
  * These coordinates can be pixel-by-pixel (drawn on the screen) and relative to the parent.
  */
-public abstract class Frame extends Drawn implements Focus {
+public abstract class Frame extends Drawn implements FrameListener {
 
     public final String name;
     /**
@@ -240,5 +241,40 @@ public abstract class Frame extends Drawn implements Focus {
         if (!focused.isEmpty()) {
             focused.getFirst().mousePressed(e);
         }
+    }
+
+    @Override
+    public void keyTyped(KeyEvent e) {
+
+    }
+
+    @Override
+    public void keyReleased(KeyEvent e) {
+
+    }
+
+    @Override
+    public void mouseClicked(MouseEvent e) {
+
+    }
+
+    @Override
+    public void mouseReleased(MouseEvent e) {
+
+    }
+
+    @Override
+    public void mouseEntered(MouseEvent e) {
+
+    }
+
+    @Override
+    public void mouseExited(MouseEvent e) {
+
+    }
+
+    @Override
+    public void actionPerformed(ActionEvent e) {
+
     }
 }

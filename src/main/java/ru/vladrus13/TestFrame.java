@@ -14,8 +14,6 @@ import ru.vladrus13.jgraphic.factory.components.ButtonFactory;
 import ru.vladrus13.jgraphic.factory.components.TextFactory;
 
 import java.awt.*;
-import java.awt.event.KeyEvent;
-import java.awt.event.MouseEvent;
 
 /**
  * @author vladrus13 on 23.03.2021
@@ -72,13 +70,5 @@ public class TestFrame extends Frame {
         if (table != null) {
             table.recalculate();
         }
-    }
-
-    @Override
-    public void keyPressed(KeyEvent e) {
-    }
-
-    @Override
-    public void mousePressed(MouseEvent e) {
     }
 }

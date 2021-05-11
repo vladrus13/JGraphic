@@ -142,6 +142,7 @@ public class Choose extends Frame implements KeyTaker {
     @Override
     public void keyPressed(KeyEvent e) {
         int keyCode = e.getKeyCode();
+        if (buttons.size() == 0) return;
         switch (keyCode) {
             case KeyEvent.VK_DOWN:
                 buttons.get(current).setChoose(false);
@@ -154,7 +155,6 @@ public class Choose extends Frame implements KeyTaker {
                 buttons.get(current).setChoose(true);
                 break;
             case KeyEvent.VK_ENTER:
-                if (buttons.size() == 0) return;
                 buttons.get(current).keyPressed(e);
         }
     }

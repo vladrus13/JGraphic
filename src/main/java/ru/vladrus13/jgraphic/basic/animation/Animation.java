@@ -49,6 +49,7 @@ public class Animation extends UpdatedFrame {
             if (current >= animationFrameArrayList.size()) {
                 callEvent(new AnimationEventEnd());
             }
+            return;
         }
         super.callEvent(event);
     }

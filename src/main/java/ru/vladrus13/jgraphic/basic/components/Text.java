@@ -116,12 +116,12 @@ public class Text extends Frame {
             splitText = FontService.splitByWidth(text, font, size.x).toArray(String[]::new);
             splitTextHeight = new Point[splitText.length];
             int textHeight = font.getSize();
-            int textStartPosition = textHeight;
+            int textStartPosition = 0;
             for (int position = 0; position < splitText.length; position++) {
                 String split = splitText[position];
                 int textWidth = FontService.fontWidth(split, font);
-                int textHeightStart = textStartPosition;
                 textStartPosition += textHeight;
+                int textHeightStart = textStartPosition;
                 if (textStartPosition > size.y) {
                     Writer.printFullWarning(logger, this, Level.WARNING, "Text size greater than size of panel: y");
                 }

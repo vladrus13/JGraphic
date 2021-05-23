@@ -42,6 +42,10 @@ public abstract class App extends JPanel implements ActionListener, MouseListene
         frame.addMouseListener(this);
     }
 
+    private void frame() {
+
+    }
+
     protected void painter() {
         // TODO make FPS better mode
         long targetTime = 1000 / MainProperty.getInteger("window.maxFPS");
@@ -59,6 +63,7 @@ public abstract class App extends JPanel implements ActionListener, MouseListene
                 ((UpdatedFrame) current).update(System.currentTimeMillis() - previousTime);
             }
             previousTime = System.currentTimeMillis();
+            frame();
             repaint();
         }
     }

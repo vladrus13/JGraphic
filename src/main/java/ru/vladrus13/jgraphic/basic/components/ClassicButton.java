@@ -49,6 +49,7 @@ public class ClassicButton extends Button {
                 for (Event event : ((CollectionEvent) keyEvent).events) {
                     callEvent(event);
                 }
+                return;
             }
             callEvent(keyEvent);
         }
